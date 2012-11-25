@@ -1,11 +1,11 @@
-# STL Viewer
+# STLViewer
 
 This is the README for the software STLViewer,
 a free cross-platform viewer of STL files.
 
 The STLViewer home web site is
 
-    http://stlviewer.sourceforge.net
+http://stlviewer.sourceforge.net
 
 If you want to send bug reports or feature requests,
 please submit them to the sourceforge bug reporting page
