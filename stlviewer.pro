@@ -1,5 +1,8 @@
 CONFIG += qt opengl debug
 QT += opengl
+VPATH += ./Sources
+MOC_DIR = ./tmp
+OBJECTS_DIR = ./tmp
 RESOURCES += stlviewer.qrc
 HEADERS += stlviewer.h
 SOURCES += stlviewer.cpp
@@ -43,9 +46,6 @@ unix {
                 propertiesgroupbox.h \
                 stlfile.h \
                 vector.h
-}
-!exists( main.cpp ) {
-    error( "No main.cpp file found" )
 }
 win32:debug {
     CONFIG += console
