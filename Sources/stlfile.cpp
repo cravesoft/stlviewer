@@ -112,11 +112,11 @@ void StlFile::initialize(const ::std::string& fileName)
         {
             stats.type = ASCII;
         }
-        file.seekg(0, ::std::ios::beg);
         // Get the header and the number of facets in the .STL file 
         // If the .STL file is binary, then do the following 
         if(stats.type == BINARY)
         {
+            file.seekg(0, ::std::ios::beg);
             // Test if the STL file has the right size
             if((fileSize - HEADER_SIZE) % SIZE_OF_FACET != 0)
             {
@@ -145,8 +145,9 @@ void StlFile::initialize(const ::std::string& fileName)
             }
         }
         else
-        {  // Otherwise, if the .STL file is ASCII, then do the following
-            file.seekg(0, ::std::ios::beg);
+        {   // Otherwise, if the .STL file is ASCII, then do the following
+            file.close();
+            file.open(fileName.c_str(), ::std::ios::in);
             // Get the header
             getline(file, stats.header);
             // Find the number of facets
@@ -159,6 +160,7 @@ void StlFile::initialize(const ::std::string& fileName)
                     numLines++;
                 }
             }
+            file.clear();
             file.seekg(0, ::std::ios::beg);
             numFacets = numLines / ASCII_LINES_PER_FACET;
         }
