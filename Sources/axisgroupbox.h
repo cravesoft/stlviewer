@@ -26,23 +26,24 @@
 class QLabel;
 class AxisGLWidget;
 
-class AxisGroupBox : public QGroupBox {
+class AxisGroupBox : public QGroupBox
+{
 
-  Q_OBJECT
+    Q_OBJECT
 
  public:
-  AxisGroupBox(QWidget *parent = 0);
-  ~AxisGroupBox();
-  void reset();
+    AxisGroupBox(QWidget *parent = 0);
+    ~AxisGroupBox();
+    void reset();
 
  public slots:
-  void setXRotation(const int angle);
-  void setYRotation(const int angle);
-  void setZRotation(const int angle);
+    void setXRotation(const int angle);
+    void setYRotation(const int angle);
+    void setZRotation(const int angle);
 
  private:
-  AxisGLWidget *axisGLWidget;
-  QLabel *xRot, *yRot, *zRot;
+    AxisGLWidget *axisGLWidget;
+    QLabel *xRot, *yRot, *zRot;
 };
 
 #endif  // DIMENSIONSGROUPBOX_H

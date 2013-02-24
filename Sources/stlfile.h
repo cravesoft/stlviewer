@@ -27,66 +27,71 @@
 
 #include "vector.h"
 
-class StlFile {
+class StlFile
+{
  public:
-  class wrong_header_size : public ::std::exception {};
-  class error_opening_file : public ::std::exception {};
-  enum Format {
-    ASCII,
-    BINARY
-  };
-  typedef struct {
-    float x;
-    float y;
-    float z;
-  } Normal;
-  typedef char Extra[2];
-  typedef struct {
-    Normal normal;
-    Vector vector[3];
-    Extra extra;
-  } Facet;
-  typedef struct {
-    ::std::string   header;
-    Format          type;
-    int             numFacets;
-    int             numPoints;
-    Vector          max;
-    Vector          min;
-    Vector          size;
-    float           boundingDiameter;
-    float           shortestEdge;
-    float           volume;
-    float           surface;
-  } Stats;
-  StlFile();
-  ~StlFile();
-  void open(const ::std::string&);
-  void write(const ::std::string&);
-  void close();
-  void setFormat(const int format);
-  Stats getStats() const { return stats; };
-  Facet* getFacets() const { return facets; };
+    class wrong_header_size : public ::std::exception {};
+    class error_opening_file : public ::std::exception {};
+    enum Format
+    {
+        ASCII,
+        BINARY
+    };
+    typedef struct
+    {
+        float x;
+        float y;
+        float z;
+    } Normal;
+    typedef char Extra[2];
+    typedef struct
+    {
+        Normal normal;
+        Vector vector[3];
+        Extra extra;
+    } Facet;
+    typedef struct
+    {
+        ::std::string   header;
+        Format          type;
+        int             numFacets;
+        int             numPoints;
+        Vector          max;
+        Vector          min;
+        Vector          size;
+        float           boundingDiameter;
+        float           shortestEdge;
+        float           volume;
+        float           surface;
+    } Stats;
+    StlFile();
+    ~StlFile();
+    void open(const ::std::string&);
+    void write(const ::std::string&);
+    void close();
+    void setFormat(const int format);
+    Stats getStats() const { return stats; };
+    Facet* getFacets() const { return facets; };
 
  private:
-  void initialize(const ::std::string&);
-  void allocate();
-  void readData(int, int);
-  int readIntFromBytes(::std::ifstream&);
-  float readFloatFromBytes(::std::ifstream&);
-  void writeBytesFromInt(::std::ofstream&, int);
-  void writeBytesFromFloat(::std::ofstream& file, float);
-  void writeBinary(const ::std::string&);
-  void writeAscii(const ::std::string&);
-  int getNumPoints();
-  float getVolume();
-  float getSurface();
-  float getArea(Facet *facet);
-  void calculateNormal(float normal[], Facet *facet);
-  void normalizeVector(float v[]);
-  ::std::ifstream file;
-  Facet *facets;
-  Stats stats;
+    void initialize(const ::std::string&);
+    void allocate();
+    void readData(int, int);
+    int readIntFromBytes(::std::ifstream&);
+    float readFloatFromBytes(::std::ifstream&);
+    void writeBytesFromInt(::std::ofstream&, int);
+    void writeBytesFromFloat(::std::ofstream& file, float);
+    void writeBinary(const ::std::string&);
+    void writeAscii(const ::std::string&);
+    int getNumPoints();
+    float getVolume();
+    float getSurface();
+    float getArea(Facet *facet);
+    void calculateNormal(float normal[], Facet *facet);
+    void normalizeVector(float v[]);
+    ::std::ifstream file;
+    Facet *facets;
+    Stats stats;
 };
 
 #endif  // STLFILE_H

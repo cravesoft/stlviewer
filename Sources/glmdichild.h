@@ -24,39 +24,40 @@
 #include "glwidget.h"
 #include "stlfile.h"
 
-class GLMdiChild : public GLWidget {
+class GLMdiChild : public GLWidget
+{
 
-  Q_OBJECT
+    Q_OBJECT
 
  public:
-  GLMdiChild(QWidget *parent = 0);
-  ~GLMdiChild();
-  void newFile();
-  bool loadFile(const QString &fileName);
-  bool save();
-  bool saveAs();
-  bool saveFile(const QString &fileName);
-  bool saveImage();
-  QString userFriendlyCurrentFile();
-  QString currentFile() { return curFile; };
-  StlFile::Stats getStats() const { return stlFile->getStats(); };
-  bool isUntitled;
+    GLMdiChild(QWidget *parent = 0);
+    ~GLMdiChild();
+    void newFile();
+    bool loadFile(const QString &fileName);
+    bool save();
+    bool saveAs();
+    bool saveFile(const QString &fileName);
+    bool saveImage();
+    QString userFriendlyCurrentFile();
+    QString currentFile() { return curFile; };
+    StlFile::Stats getStats() const { return stlFile->getStats(); };
+    bool isUntitled;
 
  signals:
-  void mouseButtonPressed(Qt::MouseButtons button);
-  void mouseButtonReleased(Qt::MouseButtons button);
+    void mouseButtonPressed(Qt::MouseButtons button);
+    void mouseButtonReleased(Qt::MouseButtons button);
 
  protected:
-  void closeEvent(QCloseEvent *event);
-  void mousePressEvent(QMouseEvent *event);
-  void mouseReleaseEvent(QMouseEvent *event);
+    void closeEvent(QCloseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
  private:
-  bool maybeSave();
-  void setCurrentFile(const QString &fileName);
-  QString strippedName(const QString &fullFileName);
-  StlFile *stlFile;
-  QString curFile;
+    bool maybeSave();
+    void setCurrentFile(const QString &fileName);
+    QString strippedName(const QString &fullFileName);
+    StlFile *stlFile;
+    QString curFile;
 };
 
 #endif  // GLMDICHILD_H

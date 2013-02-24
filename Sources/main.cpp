@@ -21,7 +21,8 @@
 #include "stlviewer.h"
 #include <QApplication>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   Q_INIT_RESOURCE(stlviewer);
   QApplication a(argc, argv);
   a.setWindowIcon(QIcon(":STLViewer/Images/stl.png"));
