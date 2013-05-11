@@ -24,6 +24,8 @@
 #include "glwidget.h"
 #include "stlfile.h"
 
+bool GLWidget::yAxisReversed = false;
+
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     object = 0;
@@ -271,6 +273,11 @@ void GLWidget::setWireframeMode(const bool state)
     updateGL();
 }
 
+void GLWidget::setYAxisMode(const bool isReversed)
+{
+    GLWidget::yAxisReversed = isReversed;
+}
+
 void GLWidget::initializeGL()
 {
     qglClearColor(purple.dark());
@@ -411,6 +418,12 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     int dx = event->x() - lastPos.x();
     int dy = event->y() - lastPos.y();
+
+    // Reverse Y-Axis if needed
+    if(GLWidget::yAxisReversed)
+    {
+        dy = -dy;
+    }
 
     if  (
         (event->buttons() & Qt::LeftButton && leftMouseButtonMode == PANNING) ||

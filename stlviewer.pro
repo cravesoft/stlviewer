@@ -11,6 +11,7 @@ win32 {
     SOURCES +=  axisglwidget.cpp \
                 axisgroupbox.cpp \
                 dimensionsgroupbox.cpp \
+                settingsdialog.cpp \
                 glmdichild.cpp \
                 glwidget.cpp \
                 meshinformationgroupbox.cpp \
@@ -20,6 +21,7 @@ win32 {
     HEADERS +=  axisglwidget.h \
                 axisgroupbox.h \
                 dimensionsgroupbox.h \
+                settingsdialog.h \
                 glmdichild.h \
                 glwidget.h \
                 meshinformationgroupbox.h \
@@ -31,6 +33,7 @@ unix {
     SOURCES +=  axisglwidget.cpp \
                 axisgroupbox.cpp \
                 dimensionsgroupbox.cpp \
+                settingsdialog.cpp \
                 glmdichild.cpp \
                 glwidget.cpp \
                 meshinformationgroupbox.cpp \
@@ -40,6 +43,7 @@ unix {
     HEADERS +=  axisglwidget.h \
                 axisgroupbox.h \
                 dimensionsgroupbox.h \
+                settingsdialog.h \
                 glmdichild.h \
                 glwidget.h \
                 meshinformationgroupbox.h \

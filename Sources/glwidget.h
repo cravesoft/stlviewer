@@ -55,6 +55,7 @@ class GLWidget : public QGLWidget
     void setBottomView();
     void setTopFrontLeftView();
     bool isWireframeModeActivated() const { return wireframeMode; };
+    static bool isYAxisReversed() { return GLWidget::yAxisReversed; };
     int getXRot() const { return xRot; };
     int getYRot() const { return yRot; };
     int getZRot() const { return zRot; };
@@ -68,6 +69,7 @@ class GLWidget : public QGLWidget
     void setZoom(const float zoom);
     void setLeftMouseButtonMode(const GLWidget::LeftMouseButtonMode);
     void setWireframeMode(const bool state);
+    static void setYAxisMode(const bool isReversed);
 
  signals:
     void xRotationChanged(const int angle) const;
@@ -103,6 +105,7 @@ class GLWidget : public QGLWidget
     float zoomFactor;
     float zoomInc;
     float defaultZoomFactor;
+    static bool yAxisReversed;
     QPoint lastPos;
     QColor grey, black, purple;
 };

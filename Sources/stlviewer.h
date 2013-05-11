@@ -37,6 +37,7 @@ class AxisGroupBox;
 class DimensionsGroupBox;
 class MeshInformationGroupBox;
 class PropertiesGroupBox;
+class SettingsDialog;
 
 class STLViewer : public QMainWindow
 {
@@ -59,6 +60,7 @@ class STLViewer : public QMainWindow
     void save();
     void saveAs();
     void saveImage();
+    void showSettingsDialog();
     void rotate();
     void panning();
     void zoom();
@@ -94,18 +96,22 @@ class STLViewer : public QMainWindow
     QMdiSubWindow *findGLMdiChild(const QString &fileName);
     QMdiArea *mdiArea;
     QSignalMapper *windowMapper;
+    SettingsDialog *settingsDialog;
     QMenu *fileMenu;
     QMenu *windowMenu;
     QMenu *viewMenu;
     QMenu *defaultViewsMenu;
+    QMenu *toolsMenu;
     QMenu *helpMenu;
     QToolBar *fileToolBar;
     QToolBar *viewToolBar;
+    //QToolBar *toolsToolBar;
     QAction *newAct;
     QAction *openAct;
     QAction *saveAct;
     QAction *saveAsAct;
     QAction *saveImageAct;
+    QAction *showSettingsDialogAct;
     QAction *closeAct;
     QAction *closeAllAct;
     QAction *tileAct;

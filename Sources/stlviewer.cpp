@@ -38,9 +38,10 @@
 #include "dimensionsgroupbox.h"
 #include "meshinformationgroupbox.h"
 #include "propertiesgroupbox.h"
+#include "settingsdialog.h"
 
 STLViewer::STLViewer(QWidget *parent, Qt::WFlags flags)
-    : QMainWindow(parent, flags)
+    :   QMainWindow(parent, flags)
 {
     mdiArea = new QMdiArea;
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -51,6 +52,7 @@ STLViewer::STLViewer(QWidget *parent, Qt::WFlags flags)
     windowMapper = new QSignalMapper(this);
     connect(windowMapper, SIGNAL(mapped(QWidget *)),
         this, SLOT(setActiveSubWindow(QWidget *)));
+    settingsDialog = new SettingsDialog(this);
     createActions();
     createMenus();
     createToolBars();
@@ -142,6 +144,15 @@ void STLViewer::saveImage()
     if(activeGLMdiChild() && activeGLMdiChild()->saveImage())
     {
         statusBar()->showMessage(tr("Image saved"), 2000);
+    }
+}
+
+void STLViewer::showSettingsDialog()
+{
+    settingsDialog->exec(GLWidget::isYAxisReversed());
+    if(settingsDialog->result() == QDialog::Accepted)
+    {
+        GLWidget::setYAxisMode(settingsDialog->isYAxisReversed());
     }
 }
 
@@ -428,6 +439,11 @@ void STLViewer::createActions()
     saveImageAct->setStatusTip(tr("Save the current view to disk"));
     connect(saveImageAct, SIGNAL(triggered()), this, SLOT(saveImage()));
 
+    showSettingsDialogAct = new QAction(tr("&Settings"), this);
+    showSettingsDialogAct->setShortcut(tr("Ctrl+P"));
+    showSettingsDialogAct->setStatusTip(tr("Show settings"));
+    connect(showSettingsDialogAct, SIGNAL(triggered()), this, SLOT(showSettingsDialog()));
+
     closeAct = new QAction(tr("Cl&ose"), this);
     closeAct->setShortcut(tr("Ctrl+W"));
     closeAct->setStatusTip(tr("Close the active window"));
@@ -565,6 +581,9 @@ void STLViewer::createMenus()
 
     viewMenu->addSeparator();
 
+    toolsMenu = menuBar()->addMenu(tr("&Tools"));
+    toolsMenu->addAction(showSettingsDialogAct);
+
     windowMenu = menuBar()->addMenu(tr("&Window"));
     updateWindowMenu();
     connect(windowMenu, SIGNAL(aboutToShow()), this, SLOT(updateWindowMenu()));
@@ -595,6 +614,11 @@ void STLViewer::createToolBars()
     viewToolBar->addAction(topViewAct);
     viewToolBar->addAction(bottomViewAct);
     viewToolBar->addAction(topFrontLeftViewAct);
+
+#if 0
+    toolsToolBar = addToolBar(tr("Settings"));
+    toolsToolBar->addAction(showSettingsDialogAct);
+#endif
 }
 
 void STLViewer::createStatusBar()
@@ -653,6 +677,7 @@ void STLViewer::readSettings()
     curDir = settings.value("dir", QString()).toString();
     QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
     QSize size = settings.value("size", QSize(400, 400)).toSize();
+    GLWidget::setYAxisMode(settings.value("yAxisReversed", false).toBool());
     resize(size);
     move(pos);
 }
@@ -663,6 +688,7 @@ void STLViewer::writeSettings()
     settings.setValue("dir", curDir);
     settings.setValue("pos", pos());
     settings.setValue("size", size());
+    settings.setValue("yAxisReversed", GLWidget::isYAxisReversed());
 }
 
 GLMdiChild *STLViewer::activeGLMdiChild()
