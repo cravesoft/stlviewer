@@ -115,7 +115,7 @@ void GLWidget::updateCursor()
 void GLWidget::setDefaultView()
 {
     setTopFrontLeftView();
-    unzoom();
+    setDefaultZoom();
     /*glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -123,12 +123,17 @@ void GLWidget::setDefaultView()
     glPopMatrix();*/
 }
 
-void GLWidget::zoom()
+void GLWidget::zoomIn()
 {
-    setZoom(zoomFactor - 50*zoomInc);
+    setZoomLevel(zoomFactor - 50*zoomInc);
 }
 
-void GLWidget::unzoom()
+void GLWidget::zoomOut()
+{
+    setZoomLevel(zoomFactor + 50*zoomInc);
+}
+
+void GLWidget::setDefaultZoom()
 {
     makeCurrent();
     xTrans = yTrans = zTrans = 0;
@@ -245,17 +250,17 @@ void GLWidget::setYTranslation(const float distance)
     }
 }
 
-void GLWidget::setZoom(const float zoom)
+void GLWidget::setZoomLevel(const float level)
 {
-    if(zoom != zoomFactor)
+    if(level != zoomFactor)
     {
-        zoomFactor = zoom;
-        if(zoom <= 0)
+        zoomFactor = level;
+        if(level <= 0)
         {
             zoomFactor = 0.001;
         }
         zoomInc = zoomFactor/1000;
-        emit zoomChanged(zoom);
+        emit zoomChanged(level);
         updateGL();
     }
 }
@@ -456,7 +461,7 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 {
     int delta = event->delta();
 
-    setZoom(zoomFactor - delta*zoomInc);
+    setZoomLevel(zoomFactor - delta*zoomInc);
 }
 
 void GLWidget::triangle(GLdouble x1, GLdouble y1, GLdouble z1,

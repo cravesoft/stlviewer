@@ -208,14 +208,19 @@ void STLViewer::wireframe()
     //emit wireframeStatusChanged(wireframeAct->isChecked());
 }
 
-void STLViewer::zoom()
+void STLViewer::zoomIn()
 {
-    activeGLMdiChild()->zoom();
+    activeGLMdiChild()->zoomIn();
 }
 
-void STLViewer::unzoom()
+void STLViewer::zoomOut()
 {
-    activeGLMdiChild()->unzoom();
+    activeGLMdiChild()->zoomOut();
+}
+
+void STLViewer::zoomDefault()
+{
+    activeGLMdiChild()->setDefaultZoom();
 }
 
 void STLViewer::backView()
@@ -281,10 +286,11 @@ void STLViewer::updateMenus() {
     saveImageAct->setEnabled(hasGLMdiChild);
     closeAct->setEnabled(hasGLMdiChild);
     closeAllAct->setEnabled(hasGLMdiChild);
-    zoomAct->setEnabled(hasGLMdiChild);
+    zoomInAct->setEnabled(hasGLMdiChild);
     rotateAct->setEnabled(hasGLMdiChild);
     panningAct->setEnabled(hasGLMdiChild);
-    unzoomAct->setEnabled(hasGLMdiChild);
+    zoomOutAct->setEnabled(hasGLMdiChild);
+    zoomDefaultAct->setEnabled(hasGLMdiChild);
     wireframeAct->setEnabled(hasGLMdiChild);
     if(hasGLMdiChild)
     {
@@ -506,16 +512,22 @@ void STLViewer::createActions()
     connect(panningAct, SIGNAL(triggered()), this, SLOT(panning()));
     panningAct->setChecked(false);
 
-    zoomAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_in.png"), tr("&Zoom In"), this);
-    zoomAct->setShortcut(tr("Z"));
-    zoomAct->setStatusTip(tr("Zoom in"));
-    connect(zoomAct, SIGNAL(triggered()), this, SLOT(zoom()));
+    zoomInAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_in.png"), tr("&Zoom In"), this);
+    zoomInAct->setShortcut(tr("+"));
+    zoomInAct->setStatusTip(tr("Zoom in"));
+    connect(zoomInAct, SIGNAL(triggered()), this, SLOT(zoomIn()));
 
-    unzoomAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_out.png"),
-        tr("&Unzoom"), this);
-    unzoomAct->setShortcut(tr("U"));
-    unzoomAct->setStatusTip(tr("Unzoom"));
-    connect(unzoomAct, SIGNAL(triggered()), this, SLOT(unzoom()));
+    zoomOutAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_out.png"),
+        tr("&Zoom Out"), this);
+    zoomOutAct->setShortcut(tr("-"));
+    zoomOutAct->setStatusTip(tr("Zoom out"));
+    connect(zoomOutAct, SIGNAL(triggered()), this, SLOT(zoomOut()));
+
+    zoomDefaultAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_default.png"),
+        tr("&Default Zoom"), this);
+    zoomDefaultAct->setShortcut(tr("0"));
+    zoomDefaultAct->setStatusTip(tr("Set default zoom"));
+    connect(zoomDefaultAct, SIGNAL(triggered()), this, SLOT(zoomDefault()));
 
     backViewAct = new QAction(QIcon(":STLViewer/Images/back_view.png"),
         tr("&Back View"), this);
@@ -584,8 +596,9 @@ void STLViewer::createMenus()
     viewMenu = menuBar()->addMenu(tr("&View"));
     viewMenu->addAction(rotateAct);
     viewMenu->addAction(panningAct);
-    viewMenu->addAction(zoomAct);
-    viewMenu->addAction(unzoomAct);
+    viewMenu->addAction(zoomInAct);
+    viewMenu->addAction(zoomOutAct);
+    viewMenu->addAction(zoomDefaultAct);
     viewMenu->addAction(wireframeAct);
 
     defaultViewsMenu = viewMenu->addMenu(tr("&Default Views"));
@@ -622,8 +635,9 @@ void STLViewer::createToolBars()
     viewToolBar = addToolBar(tr("View"));
     viewToolBar->addAction(rotateAct);
     viewToolBar->addAction(panningAct);
-    viewToolBar->addAction(zoomAct);
-    viewToolBar->addAction(unzoomAct);
+    viewToolBar->addAction(zoomInAct);
+    viewToolBar->addAction(zoomOutAct);
+    viewToolBar->addAction(zoomDefaultAct);
     viewToolBar->addAction(wireframeAct);
     viewToolBar->addAction(backViewAct);
     viewToolBar->addAction(frontViewAct);

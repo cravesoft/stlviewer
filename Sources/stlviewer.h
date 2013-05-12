@@ -62,8 +62,9 @@ class STLViewer : public DocumentWindow
     void showSettingsDialog();
     void rotate();
     void panning();
-    void zoom();
-    void unzoom();
+    void zoomIn();
+    void zoomOut();
+    void zoomDefault();
     void backView();
     void frontView();
     void leftView();
@@ -120,10 +121,11 @@ class STLViewer : public DocumentWindow
     QAction *nextAct;
     QAction *previousAct;
     QAction *separatorAct;
-    QAction *zoomAct;
+    QAction *zoomInAct;
     QAction *rotateAct;
     QAction *panningAct;
-    QAction *unzoomAct;
+    QAction *zoomOutAct;
+    QAction *zoomDefaultAct;
     QAction *backViewAct;
     QAction *frontViewAct;
     QAction *leftViewAct;

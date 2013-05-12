@@ -45,8 +45,9 @@ class GLWidget : public QGLWidget
     void makeObjectFromStlFile(StlFile*);
     void deleteObject();
     void setDefaultView();
-    void zoom();
-    void unzoom();
+    void zoomIn();
+    void zoomOut();
+    void setDefaultZoom();
     void setBackView();
     void setFrontView();
     void setLeftView();
@@ -66,7 +67,7 @@ class GLWidget : public QGLWidget
     void setZRotation(int angle);
     void setXTranslation(const float distance);
     void setYTranslation(const float distance);
-    void setZoom(const float zoom);
+    void setZoomLevel(const float level);
     void setLeftMouseButtonMode(const GLWidget::LeftMouseButtonMode);
     void setWireframeMode(const bool state);
     static void setYAxisMode(const bool isReversed);
