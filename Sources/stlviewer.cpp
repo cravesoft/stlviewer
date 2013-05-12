@@ -373,7 +373,8 @@ void STLViewer::setMouseReleased(Qt::MouseButtons button)
 GLMdiChild *STLViewer::createGLMdiChild()
 {
     GLMdiChild *child = new GLMdiChild;
-    mdiArea->addSubWindow(child);
+    mdiArea->addSubWindow(child, Qt::Widget | Qt::CustomizeWindowHint | 
+                          Qt::WindowMinMaxButtonsHint);
     child->setLeftMouseButtonMode(leftMouseButtonMode);
     connect(child, SIGNAL(mouseButtonPressed(Qt::MouseButtons)), this,
         SLOT(setMousePressed(Qt::MouseButtons)));
