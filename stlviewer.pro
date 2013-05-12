@@ -17,6 +17,7 @@ win32 {
                 meshinformationgroupbox.cpp \
                 propertiesgroupbox.cpp \
                 stlfile.cpp \
+                documentwindow.cpp \
                 vector.cpp
     HEADERS +=  axisglwidget.h \
                 axisgroupbox.h \
@@ -27,6 +28,7 @@ win32 {
                 meshinformationgroupbox.h \
                 propertiesgroupbox.h \
                 stlfile.h \
+                documentwindow.h \
                 vector.h
 }
 unix {
@@ -39,6 +41,7 @@ unix {
                 meshinformationgroupbox.cpp \
                 propertiesgroupbox.cpp \
                 stlfile.cpp \
+                documentwindow.cpp \
                 vector.cpp
     HEADERS +=  axisglwidget.h \
                 axisgroupbox.h \
@@ -49,6 +52,7 @@ unix {
                 meshinformationgroupbox.h \
                 propertiesgroupbox.h \
                 stlfile.h \
+                documentwindow.h \
                 vector.h
 }
 win32:debug {

@@ -29,6 +29,7 @@
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QSettings>
+#include <QMdiArea>
 
 #include <iostream>
 #include <fstream>
@@ -41,7 +42,7 @@
 #include "settingsdialog.h"
 
 STLViewer::STLViewer(QWidget *parent, Qt::WFlags flags)
-    :   QMainWindow(parent, flags)
+    :   DocumentWindow(parent, flags)
 {
     mdiArea = new QMdiArea;
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -68,6 +69,40 @@ STLViewer::STLViewer(QWidget *parent, Qt::WFlags flags)
 }
 
 STLViewer::~STLViewer() {}
+
+void STLViewer::openFile(const QString& path)
+{
+    QMdiSubWindow *existing = findGLMdiChild(path);
+    if(existing)
+    {
+        mdiArea->setActiveSubWindow(existing);
+    }
+    else
+    {
+        GLMdiChild *child = createGLMdiChild();
+        if(child->loadFile(path))
+        {
+            statusBar()->showMessage(tr("File loaded"), 2000);
+            child->show();
+        }
+        else
+        {
+            setActiveSubWindow(child);
+            mdiArea->closeActiveSubWindow();
+            //child->close();
+        }
+    }
+}
+
+bool STLViewer::openFiles(const QStringList& pathList)
+{
+    bool success = true;
+    for (int i = 0; i < pathList.size() && i < 32; ++i)
+    {
+        openFile(pathList.at(i));
+    }
+    return success;
+}
 
 void STLViewer::closeEvent(QCloseEvent *event)
 {
@@ -102,24 +137,7 @@ void STLViewer::open()
     if(!fileName.isEmpty())
     {
         curDir = QFileInfo(fileName).filePath();
-        QMdiSubWindow *existing = findGLMdiChild(fileName);
-        if(existing)
-        {
-            mdiArea->setActiveSubWindow(existing);
-            return;
-        }
-        GLMdiChild *child = createGLMdiChild();
-        if(child->loadFile(fileName))
-        {
-            statusBar()->showMessage(tr("File loaded"), 2000);
-            child->show();
-        }
-        else
-        {
-            setActiveSubWindow(child);
-            mdiArea->closeActiveSubWindow();
-            //child->close();
-        }
+        openFile(fileName);
     }
 }
 
@@ -445,7 +463,7 @@ void STLViewer::createActions()
     connect(showSettingsDialogAct, SIGNAL(triggered()), this, SLOT(showSettingsDialog()));
 
     closeAct = new QAction(tr("Cl&ose"), this);
-    closeAct->setShortcut(tr("Ctrl+W"));
+    //closeAct->setShortcut(tr("Ctrl+W"));
     closeAct->setStatusTip(tr("Close the active window"));
     connect(closeAct, SIGNAL(triggered()), mdiArea, SLOT(closeActiveSubWindow()));
 

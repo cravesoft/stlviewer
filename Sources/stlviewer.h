@@ -21,25 +21,24 @@
 #ifndef STLVIEWER_H
 #define STLVIEWER_H
 
-#include <QMainWindow>
 #include <QGLWidget>
-#include <QMdiArea>
 #include <QAction>
 #include <QMenu>
 #include <QLabel>
-#include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QSignalMapper>
 
 #include "glmdichild.h"
+#include "documentwindow.h"
 
+class Qmdiarea;
 class AxisGroupBox;
 class DimensionsGroupBox;
 class MeshInformationGroupBox;
 class PropertiesGroupBox;
 class SettingsDialog;
 
-class STLViewer : public QMainWindow
+class STLViewer : public DocumentWindow
 {
 
     Q_OBJECT
@@ -83,6 +82,8 @@ class STLViewer : public QMainWindow
     void destroyGLMdiChild();
 
  private:
+    void openFile(const QString& path);
+    bool openFiles(const QStringList& pathList);
     void createActions();
     void createMenus();
     void createToolBars();
