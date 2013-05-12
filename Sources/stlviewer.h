@@ -54,6 +54,7 @@ class STLViewer : public DocumentWindow
     void closeEvent(QCloseEvent *event);
 
  private slots:
+    void initialize();
     void newFile();  
     void open();
     void save();

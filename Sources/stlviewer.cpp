@@ -94,10 +94,20 @@ void STLViewer::openFile(const QString& path)
     }
 }
 
+void STLViewer::initialize()
+{
+    QStringList pathList;
+    for(int i = 1; i < QCoreApplication::arguments().size(); i++)
+    {
+        pathList.append(QCoreApplication::arguments().at(i));
+    }
+    openFiles(pathList);
+}
+
 bool STLViewer::openFiles(const QStringList& pathList)
 {
     bool success = true;
-    for (int i = 0; i < pathList.size() && i < 32; ++i)
+    for(int i = 0; i < pathList.size() && i < 32; ++i)
     {
         openFile(pathList.at(i));
     }

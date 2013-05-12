@@ -20,6 +20,7 @@
 
 #include "stlviewer.h"
 #include <QApplication>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(":STLViewer/Images/stl.png"));
     a.setApplicationVersion("1.1");
     STLViewer w;
+    QTimer::singleShot(0, &w, SLOT(initialize()));
     w.show();
     return a.exec();
 }
