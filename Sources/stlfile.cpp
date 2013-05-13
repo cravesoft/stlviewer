@@ -391,13 +391,13 @@ void StlFile::writeAscii(const ::std::string& fileName)
             file << "  facet normal " << facets[i].normal.x << " "
                  << facets[i].normal.y << " " << facets[i].normal.z << ::std::endl;
             file << "    outer loop " << ::std::endl;
-            file << "      Vector " << facets[i].vector[0].x << " "
+            file << "      vertex " << facets[i].vector[0].x << " "
                  << facets[i].vector[0].y << " " << facets[i].vector[0].z
                  << ::std::endl;
-            file << "      Vector " << facets[i].vector[1].x << " " 
+            file << "      vertex " << facets[i].vector[1].x << " "
                  << facets[i].vector[1].y << " " << facets[i].vector[1].z
                  << ::std::endl;
-            file << "      Vector " << facets[i].vector[2].x << " "
+            file << "      vertex " << facets[i].vector[2].x << " "
                  << facets[i].vector[2].y << " " << facets[i].vector[2].z
                  << ::std::endl;
             file << "    endloop" << ::std::endl;
