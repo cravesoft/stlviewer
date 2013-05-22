@@ -21,12 +21,9 @@
 #ifndef AXISGLWIDGET_H
 #define AXISGLWIDGET_H
 
-#include <QtGui/QGroupBox>
-#include <QtOpenGL/QGLWidget>
+#include <QGLWidget>
 
 #include "stlfile.h"
-
-class AxisGLWidget;
 
 class AxisGLWidget : public QGLWidget
 {

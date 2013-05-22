@@ -18,13 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QtGlobal>
 #include <QApplication>
 #include <QErrorMessage>
-#include <math.h>
+#include <cmath>
+#include <cctype>
 #include <string>
 #include <algorithm>
-#include <cctype>
 #include <vector>
 
 #include "stlfile.h"

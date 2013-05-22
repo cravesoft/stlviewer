@@ -21,22 +21,19 @@
 #ifndef STLVIEWER_H
 #define STLVIEWER_H
 
-#include <QGLWidget>
-#include <QAction>
-#include <QMenu>
-#include <QLabel>
-#include <QMdiSubWindow>
-#include <QSignalMapper>
-
 #include "glmdichild.h"
 #include "documentwindow.h"
 
-class Qmdiarea;
+class QSignalMapper;
+class QMenu;
+class QAction;
 class AxisGroupBox;
 class DimensionsGroupBox;
 class MeshInformationGroupBox;
 class PropertiesGroupBox;
 class SettingsDialog;
+class QMdiSubWindow;
+class QMdiArea;
 
 class STLViewer : public DocumentWindow
 {

@@ -21,7 +21,7 @@
 #ifndef MESHINFORMATIONGROUPBOX_H
 #define MESHINFORMATIONGROUPBOX_H
 
-#include <QtGui/QGroupBox>
+#include <QGroupBox>
 
 #include "stlfile.h"
 

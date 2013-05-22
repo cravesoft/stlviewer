@@ -21,7 +21,7 @@
 #ifndef AXISGROUPBOX_H
 #define AXISGROUPBOX_H
 
-#include <QtGui/QGroupBox>
+#include <QGroupBox>
 
 class QLabel;
 class AxisGLWidget;

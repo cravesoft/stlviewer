@@ -18,18 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QGLWidget>
+#include <QSignalMapper>
 #include <QCloseEvent>
-#include <QFileDialog>
+#include <QToolBar>
 #include <QStatusBar>
 #include <QMenuBar>
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QCoreApplication>
-#include <QToolBar>
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QSettings>
 #include <QMdiArea>
+#include <QMdiSubWindow>
+#include <QAction>
 
 #include <iostream>
 #include <fstream>

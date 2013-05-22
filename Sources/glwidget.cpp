@@ -18,8 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QtGui/QtGui>
-#include <QtOpenGL/QtOpenGL>
+#include <QtOpenGL>
 
 #include "glwidget.h"
 #include "stlfile.h"

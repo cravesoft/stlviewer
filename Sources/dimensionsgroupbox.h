@@ -21,7 +21,7 @@
 #ifndef DIMENSIONSGROUPBOX_H
 #define DIMENSIONSGROUPBOX_H
 
-#include <QtGui/QGroupBox>
+#include <QGroupBox>
 
 #include "stlfile.h"
 

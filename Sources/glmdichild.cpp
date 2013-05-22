@@ -18,13 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QGLWidget>
-#include <exception>
 #include <QApplication>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMouseEvent>
 #include <QCloseEvent>
+#include <QString>
+#include <exception>
 
 #include "glmdichild.h"
 

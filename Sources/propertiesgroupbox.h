@@ -21,7 +21,7 @@
 #ifndef PROPERTIESGROUPBOX_H
 #define PROPERTIESGROUPBOX_H
 
-#include <QtGui/QGroupBox>
+#include <QGroupBox>
 
 #include "stlfile.h"
 

@@ -21,10 +21,9 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QtOpenGL/QGLWidget>
+#include <QGLWidget>
 
 class StlFile;
-class MdiChild;
 
 class GLWidget : public QGLWidget
 {

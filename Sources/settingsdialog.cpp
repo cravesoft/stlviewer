@@ -1,5 +1,4 @@
 #include <QDialogButtonBox>
-#include <QLabel>
 #include <QVBoxLayout>
 #include <QCheckBox>
 
