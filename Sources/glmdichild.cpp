@@ -198,7 +198,7 @@ bool GLMdiChild::saveImage()
     }
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QImage screenshot = this->grabFrameBuffer();
-    screenshot.save(fileName, format.toAscii());
+    screenshot.save(fileName, format.toLatin1());
     QApplication::restoreOverrideCursor();
     return true;
 }
