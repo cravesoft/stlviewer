@@ -36,8 +36,8 @@ PropertiesGroupBox::PropertiesGroupBox(QWidget *parent)
     surface = new QLabel("");
     surface->setAlignment(Qt::AlignRight);
     layout->addWidget(surface, 1, 1);
-    layout->addWidget(new QLabel("mm^3"), 0, 2);
-    layout->addWidget(new QLabel("mm^2"), 1, 2);
+    layout->addWidget(new QLabel(QString::fromUtf8("mm\u00B3")), 0, 2);
+    layout->addWidget(new QLabel(QString::fromUtf8("mm\u00B2")), 1, 2);
     setLayout(layout);
 }
 

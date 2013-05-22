@@ -68,7 +68,7 @@ void AxisGroupBox::setXRotation(const int angle)
     QString data;
     // Display angle value
     data.setNum(angle / 16);
-    xRot->setText(data + "°");
+    xRot->setText(data + QString::fromUtf8("\u00B0"));
     // Update angle value
     axisGLWidget->setXRotation(angle);
 }
@@ -78,7 +78,7 @@ void AxisGroupBox::setYRotation(const int angle)
     QString data;
     // Display angle value
     data.setNum(angle / 16);
-    yRot->setText(data + "°");
+    yRot->setText(data + QString::fromUtf8("\u00B0"));
     // Update angle value
     axisGLWidget->setYRotation(angle);
 }
@@ -88,7 +88,7 @@ void AxisGroupBox::setZRotation(const int angle)
     QString data;
     // Display angle value
     data.setNum(angle / 16);
-    zRot->setText(data + "°");
+    zRot->setText(data + QString::fromUtf8("\u00B0"));
     // Update angle value
     axisGLWidget->setZRotation(angle);
 }
