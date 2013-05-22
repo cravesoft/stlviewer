@@ -23,7 +23,7 @@
 
 #include <QDialog>
 
-QT_FORWARD_DECLARE_CLASS(QCheckBox)
+class QCheckBox;
 
 /**
  * Dialog used to control settings such as the audio input / output device
