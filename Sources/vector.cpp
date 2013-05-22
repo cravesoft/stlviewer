@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <math.h>
+#include <cmath>
 
 #include "vector.h"
 
@@ -34,7 +34,7 @@ Vector::Vector(float a, float b, float c, float d) : x (a), y (b), z (c), w (d) 
 Vector::~Vector() {}
 
 // Returns the Magnitude of the current Vector
-float Vector::Magnitude(void)
+float Vector::Magnitude(void) const
 {
     return static_cast<float>(sqrt(x * x + y * y + z * z));
 }
@@ -63,13 +63,13 @@ Vector Vector::Scale(float scale_factor)
 }
 
 // Calculates the Dot-Product between this and another Vector
-float Vector::Dot(Vector vec2)
+float Vector::Dot(Vector vec2) const
 {
     return x * vec2.x + y * vec2.y + z * vec2.z;
 }
 
 // Returns the Cross-Product between this and another Vector
-Vector Vector::Cross(Vector vec2)
+Vector Vector::Cross(Vector vec2) const
 {
     Vector cross_vec;
     cross_vec.x = y * vec2.z - vec2.y * z;
@@ -90,20 +90,20 @@ Vector Vector::operator = (const Vector vec2)
 }
 
 // Allows to check if two vectors equal each other
-bool Vector::operator == (const Vector vec2)
+bool Vector::operator == (const Vector vec2) const
 {
     return (x == vec2.x && y == vec2.y && z == vec2.z && w == vec2.w);
 }
 
 // Allows to check if two vectors don't equal to each other
-bool Vector::operator != (const Vector vec2)
+bool Vector::operator != (const Vector vec2) const
 {
     return (x != vec2.x || y != vec2.y || z != vec2.z || w != vec2.w);
 }
 
 // Allows to check if one vector is less than the other
 // NOTE: This operator overload has no mathematical meanning
-bool Vector::operator < (const Vector vec2)
+bool Vector::operator < (const Vector vec2) const
 {
     if(x == vec2.x)
     {   // x is considered to be the most important
@@ -135,40 +135,40 @@ bool Vector::operator < (const Vector vec2)
 // NOTE: The following arithmetic operator overloads DO NOT change the value of
 // the current vector
 // Returns the sum of vectors
-Vector Vector::operator + (const Vector vec2)
+Vector Vector::operator + (const Vector vec2) const
 {
     return Vector(x + vec2.x, y + vec2.y, z + vec2.z, w + vec2.w);
 }
 
 // Returns the difference of vectors
-Vector Vector::operator - (const Vector vec2)
+Vector Vector::operator - (const Vector vec2) const
 {
     return Vector(x - vec2.x, y - vec2.y, z - vec2.z, w - vec2.w);
 }
 
 // Returns the vector scaled by a factor
-Vector Vector::operator * (const float scale_factor)
+Vector Vector::operator * (const float scale_factor) const
 {
     return Vector(x * scale_factor, y * scale_factor, z * scale_factor,
                   w * scale_factor);
 }
 
 // Returns the vector scaled by a factor
-Vector Vector::operator / (const float scale_factor)
+Vector Vector::operator / (const float scale_factor) const
 {
     return Vector(x / scale_factor, y / scale_factor, z / scale_factor,
                   w / scale_factor);
 }
 
 // Returns the vector multiplied by the other
-Vector Vector::operator * (const Vector scale_vector)
+Vector Vector::operator * (const Vector scale_vector) const
 {
     return Vector(x * scale_vector.x, y * scale_vector.y, z * scale_vector.z,
                   w * scale_vector.w);
 }
 
 // Returns the vector divided by the other
-Vector Vector::operator / (const Vector scale_vector)
+Vector Vector::operator / (const Vector scale_vector) const
 {
     return Vector(x / scale_vector.x, y / scale_vector.y, z / scale_vector.z,
                   w / scale_vector.w);

@@ -34,39 +34,39 @@ class Vector
     Vector(float a, float b, float c, float d);
     ~Vector();
     // Returns the Magnitude of the current Vector
-    float Magnitude(void);
+    float Magnitude(void) const;
     // Normalizes to a Unit Vector (Scales to magnitude of 1)
     Vector Normalize(void);
     // Scales the Vector by a factor
     Vector Scale(float scale_factor);
     // Calculates the Dot-Product between this and another Vector
-    float Dot(Vector vec2);
+    float Dot(Vector vec2) const;
     // Returns the Cross-Product between this and another Vector
-    Vector Cross(Vector vec2);
+    Vector Cross(Vector vec2) const;
     // Allows you to simply write "vec1 = vec2"
     Vector operator = (const Vector vec2);
     // Allows to check if two vectors equal each other
-    bool operator == (const Vector vec2);
+    bool operator == (const Vector vec2) const;
     // Allows to check if two vectors are not equal to
     // each other
-    bool operator != (const Vector vec2);
+    bool operator != (const Vector vec2) const;
     // Allows to check if one vector is less than the other
     // NOTE: This operator overload has no mathematical meanning
-    bool operator < (const Vector vec2);
+    bool operator < (const Vector vec2) const;
     // NOTE: The following arithmetic operator overloads DO NOT change the value
     // of the current vector
     // Returns the sum of vectors
-    Vector operator + (const Vector vec2);
+    Vector operator + (const Vector vec2) const;
     // Returns the difference of vectors
-    Vector operator - (const Vector vec2);
+    Vector operator - (const Vector vec2) const;
     // Returns the vector scaled by a factor
-    Vector operator * (const float scale_factor);
+    Vector operator * (const float scale_factor) const;
     // Returns the vectors scaled by a factor
-    Vector operator / (const float scale_factor);
+    Vector operator / (const float scale_factor) const;
     // Returns the vector multiplied by the other
-    Vector operator * (const Vector scale_vector);
+    Vector operator * (const Vector scale_vector) const;
     // Returns the vector divided by the other
-    Vector operator / (const Vector scale_vector);
+    Vector operator / (const Vector scale_vector) const;
     float x, y, z, w;
 };
 
