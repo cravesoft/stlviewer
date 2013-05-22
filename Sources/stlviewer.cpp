@@ -43,7 +43,7 @@
 #include "propertiesgroupbox.h"
 #include "settingsdialog.h"
 
-STLViewer::STLViewer(QWidget *parent, Qt::WFlags flags)
+STLViewer::STLViewer(QWidget *parent, Qt::WindowFlags flags)
     :   DocumentWindow(parent, flags)
 {
     mdiArea = new QMdiArea;

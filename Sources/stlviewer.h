@@ -41,7 +41,7 @@ class STLViewer : public DocumentWindow
     Q_OBJECT
  
  public:
-    STLViewer(QWidget *parent = 0, Qt::WFlags flags = 0);
+    STLViewer(QWidget *parent = 0, Qt::WindowFlags flags = 0);
     ~STLViewer();
 
  signals:
