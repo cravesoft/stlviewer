@@ -537,7 +537,7 @@ void STLViewer::createActions()
 
     zoomDefaultAct = new QAction(QIcon(":STLViewer/Images/magnifier_zoom_default.png"),
         tr("&Default Zoom"), this);
-    zoomDefaultAct->setShortcut(tr("0"));
+    zoomDefaultAct->setShortcut(tr("1"));
     zoomDefaultAct->setStatusTip(tr("Set default zoom"));
     connect(zoomDefaultAct, SIGNAL(triggered()), this, SLOT(zoomDefault()));
 
