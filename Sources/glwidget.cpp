@@ -60,22 +60,23 @@ void GLWidget::makeObjectFromStlFile(StlFile *stlfile)
     object = glGenLists(1);
     glNewList(object, GL_COMPILE);
     glBegin(GL_TRIANGLES);
-    StlFile::Facet *facets = stlfile->getFacets();
     StlFile::Stats stats = stlfile->getStats();
+    stlfile->reset();
     for(int i = 0; i < stats.numFacets; ++i)
     {
-        glNormal3d(facets[i].normal.x,
-                   facets[i].normal.y,
-                   facets[i].normal.z);
-        triangle(facets[i].vector[0].x,
-                 facets[i].vector[0].y,
-                 facets[i].vector[0].z,
-                 facets[i].vector[1].x,
-                 facets[i].vector[1].y,
-                 facets[i].vector[1].z,
-                 facets[i].vector[2].x,
-                 facets[i].vector[2].y,
-                 facets[i].vector[2].z);
+        StlFile::Facet facet = stlfile->getNextFacet();
+        glNormal3d(facet.normal.x,
+                   facet.normal.y,
+                   facet.normal.z);
+        triangle(facet.vector[0].x,
+                 facet.vector[0].y,
+                 facet.vector[0].z,
+                 facet.vector[1].x,
+                 facet.vector[1].y,
+                 facet.vector[1].z,
+                 facet.vector[2].x,
+                 facet.vector[2].y,
+                 facet.vector[2].z);
     }
     glEnd();
     glEndList();

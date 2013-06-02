@@ -71,26 +71,22 @@ class StlFile
     void close();
     void setFormat(const int format);
     Stats getStats() const { return stats; };
-    Facet* getFacets() const { return facets; };
+    void reset();
+    Facet getNextFacet();
 
  private:
     void initialize(const ::std::string&);
-    void allocate();
-    void readData(int, int);
+    void computeStats();
     int readIntFromBytes(::std::ifstream&);
     float readFloatFromBytes(::std::ifstream&);
     void writeBytesFromInt(::std::ofstream&, int);
     void writeBytesFromFloat(::std::ofstream& file, float);
     void writeBinary(const ::std::string&);
     void writeAscii(const ::std::string&);
-    int getNumPoints();
-    float getVolume();
-    float getSurface();
-    float getArea(Facet *facet);
-    void calculateNormal(float normal[], Facet *facet);
+    float getArea(Facet &facet);
+    void calculateNormal(float normal[], Facet &facet);
     void normalizeVector(float v[]);
-    ::std::ifstream file;
-    Facet *facets;
+    ::std::ifstream fileIn;
     Stats stats;
 };
 
