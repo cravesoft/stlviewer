@@ -33,9 +33,8 @@
 #define SIZE_OF_FACET 50
 #define ASCII_LINES_PER_FACET 7
 
-StlFile::StlFile()
+StlFile::StlFile() : facets(NULL), stats()
 {
-    facets = 0;
 }
 
 StlFile::~StlFile()
@@ -53,25 +52,25 @@ void StlFile::open(const ::std::string& fileName)
 
 void StlFile::write(const ::std::string& fileName)
 {
-    if(facets != 0)
+    if(facets != NULL)
     {
         if(stats.type == ASCII)
         {
-          writeAscii(fileName);
+            writeAscii(fileName);
         }
         else
         {
-          writeBinary(fileName);
+            writeBinary(fileName);
         }
     }
 }
 
 void StlFile::close()
 {
-    if(facets != 0)
+    if(facets != NULL)
     {
       delete[] facets;
-      facets = 0;
+      facets = NULL;
     }
 }
 
@@ -93,15 +92,16 @@ void StlFile::initialize(const ::std::string& fileName)
     stats.numPoints = 0;
     stats.surface = -1.0;
     stats.volume = -1.0;
-    facets = 0;
+    facets = NULL;
     // Open the file
-    file.open(fileName.c_str(), ::std::ios::binary);
+    file.open(fileName.c_str(), ::std::ios::in|::std::ios::binary);
     if(file.is_open())
     {
         int numFacets;
         // Find length of file
+        std::streampos fileSize = file.tellg();
         file.seekg(0, ::std::ios::end);
-        int fileSize = file.tellg();
+        fileSize = file.tellg() - fileSize;
         // Check for binary or ASCII file
         file.seekg(0, ::std::ios::beg);
         stats.type = BINARY;
@@ -115,19 +115,20 @@ void StlFile::initialize(const ::std::string& fileName)
         // If the .STL file is binary, then do the following 
         if(stats.type == BINARY)
         {
+            file.clear();
             file.seekg(0, ::std::ios::beg);
             // Test if the STL file has the right size
-            if((fileSize - HEADER_SIZE) % SIZE_OF_FACET != 0)
+            if(((int)fileSize - HEADER_SIZE) % SIZE_OF_FACET != 0)
             {
                 ::std::cerr << "The file " << file << " has a wrong size."
                             << ::std::endl;
                 throw wrong_header_size();
             }
-            numFacets = (fileSize - HEADER_SIZE) / SIZE_OF_FACET;
+            numFacets = ((int)fileSize - HEADER_SIZE) / SIZE_OF_FACET;
             // Read the header
             char buffer[JUNK_SIZE];
             file.read(buffer, JUNK_SIZE);
-            stats.header = buffer;
+            stats.header = ::std::string(buffer);
             // Read the int following the header.
             // This should contain the number of facets
             int headerNumFacets = readIntFromBytes(file);
@@ -147,27 +148,37 @@ void StlFile::initialize(const ::std::string& fileName)
         {   // Otherwise, if the .STL file is ASCII, then do the following
             file.close();
             file.open(fileName.c_str(), ::std::ios::in);
-            // Get the header
-            getline(file, stats.header);
-            // Find the number of facets
-            int numLines = 0;
-            ::std::string line;
-            while(!getline(file, line).eof())
+            if(file.is_open())
             {
-                if(line.size() > 4)
-                {  // don't count short lines
-                    numLines++;
+                // Get the header
+                char buffer[JUNK_SIZE];
+                file.read(buffer, JUNK_SIZE);
+                stats.header = ::std::string(buffer);
+                // Find the number of facets
+                int numLines = 0;
+                ::std::string line;
+                while(!getline(file, line).eof())
+                {
+                    if(line.size() > 4)
+                    {  // don't count short lines
+                        numLines++;
+                    }
                 }
+                file.clear();
+                file.seekg(0, ::std::ios::beg);
+                numFacets = numLines / ASCII_LINES_PER_FACET;
             }
-            file.clear();
-            file.seekg(0, ::std::ios::beg);
-            numFacets = numLines / ASCII_LINES_PER_FACET;
+            else
+            {
+                ::std::cerr << "The file " << fileName << " could not be opened." << ::std::endl;
+                throw error_opening_file();
+            }
         }
         stats.numFacets += numFacets;
     }
     else
     {
-        ::std::cerr << "The file " << file << " could not be found." << ::std::endl;
+        ::std::cerr << "The file " << fileName << " could not be opened." << ::std::endl;
         throw error_opening_file();
     }
 }
@@ -176,7 +187,7 @@ void StlFile::allocate()
 {
     // Allocate memory for the entire .STL file
     facets = new Facet[stats.numFacets];
-    if(facets == 0)
+    if(facets == NULL)
     {
         ::std::cerr << "Problem allocating memory" << ::std::endl;
         throw ::std::bad_alloc();
@@ -196,56 +207,54 @@ void StlFile::readData(int firstFacet, int first)
         // Skip the first line of the file
         getline(file, line);
     }
-    Facet facet;
     for(int i = firstFacet; i < stats.numFacets; i++)
     {
+        Facet *facet = &facets[i];
         if(stats.type == BINARY)
         {  // Read a single facet from a binary .STL file
-            facet.normal.x = readFloatFromBytes(file);
-            facet.normal.y = readFloatFromBytes(file);
-            facet.normal.z = readFloatFromBytes(file);
-            facet.vector[0].x = readFloatFromBytes(file);
-            facet.vector[0].y = readFloatFromBytes(file);
-            facet.vector[0].z = readFloatFromBytes(file);
-            facet.vector[1].x = readFloatFromBytes(file);
-            facet.vector[1].y = readFloatFromBytes(file);
-            facet.vector[1].z = readFloatFromBytes(file);
-            facet.vector[2].x = readFloatFromBytes(file);
-            facet.vector[2].y = readFloatFromBytes(file);
-            facet.vector[2].z = readFloatFromBytes(file);
-            facet.extra[0] = file.get();
-            facet.extra[1] = file.get();
+            facet->normal.x = readFloatFromBytes(file);
+            facet->normal.y = readFloatFromBytes(file);
+            facet->normal.z = readFloatFromBytes(file);
+            facet->vector[0].x = readFloatFromBytes(file);
+            facet->vector[0].y = readFloatFromBytes(file);
+            facet->vector[0].z = readFloatFromBytes(file);
+            facet->vector[1].x = readFloatFromBytes(file);
+            facet->vector[1].y = readFloatFromBytes(file);
+            facet->vector[1].z = readFloatFromBytes(file);
+            facet->vector[2].x = readFloatFromBytes(file);
+            facet->vector[2].y = readFloatFromBytes(file);
+            facet->vector[2].z = readFloatFromBytes(file);
+            facet->extra[0] = file.get();
+            facet->extra[1] = file.get();
         }
         else
         {  // Read a single facet from an ASCII .STL file
             ::std::string junk;
             file >> junk >> junk;
-            file >> facet.normal.x >> facet.normal.y >> facet.normal.z;
+            file >> facet->normal.x >> facet->normal.y >> facet->normal.z;
             file >> junk >> junk >> junk;
-            file >> facet.vector[0].x >> facet.vector[0].y >> facet.vector[0].z;
+            file >> facet->vector[0].x >> facet->vector[0].y >> facet->vector[0].z;
             file >> junk;
-            file >> facet.vector[1].x >> facet.vector[1].y >> facet.vector[1].z;
+            file >> facet->vector[1].x >> facet->vector[1].y >> facet->vector[1].z;
             file >> junk;
-            file >> facet.vector[2].x >> facet.vector[2].y >> facet.vector[2].z;
+            file >> facet->vector[2].x >> facet->vector[2].y >> facet->vector[2].z;
             file >> junk >> junk;
         }
-        // Write the facet into memory.
-        facets[i] = facet;
         // While we are going through all of the facets, let's find the
         // maximum and minimum values for x, y, and z
         // Initialize the max and min values the first time through
         if(first)
         {
-            stats.max.x = facet.vector[0].x;
-            stats.min.x = facet.vector[0].x;
-            stats.max.y = facet.vector[0].y;
-            stats.min.y = facet.vector[0].y;
-            stats.max.z = facet.vector[0].z;
-            stats.min.z = facet.vector[0].z;
+            stats.max.x = facet->vector[0].x;
+            stats.min.x = facet->vector[0].x;
+            stats.max.y = facet->vector[0].y;
+            stats.min.y = facet->vector[0].y;
+            stats.max.z = facet->vector[0].z;
+            stats.min.z = facet->vector[0].z;
               
-            float xDiff = qAbs(facet.vector[0].x - facet.vector[1].x);
-            float yDiff = qAbs(facet.vector[0].y - facet.vector[1].y);
-            float zDiff = qAbs(facet.vector[0].z - facet.vector[1].z);
+            float xDiff = qAbs(facet->vector[0].x - facet->vector[1].x);
+            float yDiff = qAbs(facet->vector[0].y - facet->vector[1].y);
+            float zDiff = qAbs(facet->vector[0].z - facet->vector[1].z);
             float maxDiff = qMax(xDiff, yDiff);
             maxDiff = qMax(zDiff, maxDiff);
             stats.shortestEdge = maxDiff;
@@ -253,26 +262,26 @@ void StlFile::readData(int firstFacet, int first)
             first = 0;
         }
         // Now find the max and min values
-        stats.max.x = qMax(stats.max.x, facet.vector[0].x);
-        stats.min.x = qMin(stats.min.x, facet.vector[0].x);
-        stats.max.y = qMax(stats.max.y, facet.vector[0].y);
-        stats.min.y = qMin(stats.min.y, facet.vector[0].y);
-        stats.max.z = qMax(stats.max.z, facet.vector[0].z);
-        stats.min.z = qMin(stats.min.z, facet.vector[0].z);
+        stats.max.x = qMax(stats.max.x, facet->vector[0].x);
+        stats.min.x = qMin(stats.min.x, facet->vector[0].x);
+        stats.max.y = qMax(stats.max.y, facet->vector[0].y);
+        stats.min.y = qMin(stats.min.y, facet->vector[0].y);
+        stats.max.z = qMax(stats.max.z, facet->vector[0].z);
+        stats.min.z = qMin(stats.min.z, facet->vector[0].z);
 
-        stats.max.x = qMax(stats.max.x, facet.vector[1].x);
-        stats.min.x = qMin(stats.min.x, facet.vector[1].x);
-        stats.max.y = qMax(stats.max.y, facet.vector[1].y);
-        stats.min.y = qMin(stats.min.y, facet.vector[1].y);
-        stats.max.z = qMax(stats.max.z, facet.vector[1].z);
-        stats.min.z = qMin(stats.min.z, facet.vector[1].z);
+        stats.max.x = qMax(stats.max.x, facet->vector[1].x);
+        stats.min.x = qMin(stats.min.x, facet->vector[1].x);
+        stats.max.y = qMax(stats.max.y, facet->vector[1].y);
+        stats.min.y = qMin(stats.min.y, facet->vector[1].y);
+        stats.max.z = qMax(stats.max.z, facet->vector[1].z);
+        stats.min.z = qMin(stats.min.z, facet->vector[1].z);
 
-        stats.max.x = qMax(stats.max.x, facet.vector[2].x);
-        stats.min.x = qMin(stats.min.x, facet.vector[2].x);
-        stats.max.y = qMax(stats.max.y, facet.vector[2].y);
-        stats.min.y = qMin(stats.min.y, facet.vector[2].y);
-        stats.max.z = qMax(stats.max.z, facet.vector[2].z);
-        stats.min.z = qMin(stats.min.z, facet.vector[2].z);
+        stats.max.x = qMax(stats.max.x, facet->vector[2].x);
+        stats.min.x = qMin(stats.min.x, facet->vector[2].x);
+        stats.max.y = qMax(stats.max.y, facet->vector[2].y);
+        stats.min.y = qMin(stats.min.y, facet->vector[2].y);
+        stats.max.z = qMax(stats.max.z, facet->vector[2].z);
+        stats.min.z = qMin(stats.min.z, facet->vector[2].z);
     }
     stats.size.x = stats.max.x - stats.min.x;
     stats.size.y = stats.max.y - stats.min.y;
@@ -474,7 +483,7 @@ float StlFile::getVolume()
     p0.x = facets[0].vector[0].x;
     p0.y = facets[0].vector[0].y;
     p0.z = facets[0].vector[0].z;
-    for(int i = 0; i < stats.numFacets; i++)
+    for(int i = 1; i < stats.numFacets; i++)
     {
         p.x = facets[i].vector[0].x - p0.x;
         p.y = facets[i].vector[0].y - p0.y;

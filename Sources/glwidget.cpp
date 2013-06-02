@@ -25,19 +25,17 @@
 
 bool GLWidget::yAxisReversed = false;
 
-GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
+GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent),
+    width(0), height(0), object(0),
+    wireframeMode(false), leftMouseButtonMode(INACTIVE),
+    xRot(0), yRot(0), zRot(0),
+    xPos(0), yPos(0), zPos(0),
+    xTrans(0), yTrans(0), zTrans(0),
+    zoomFactor(1.0), zoomInc(0), defaultZoomFactor(1.0),
+    grey(QColor::fromRgbF(0.6, 0.6, 0.6)),
+    black(QColor::fromRgbF(0.0, 0.0, 0.0)),
+    purple(QColor::fromCmykF(0.39, 0.39, 0.0, 0.0))
 {
-    object = 0;
-    xRot = yRot = zRot = 0;
-    xPos= yPos= zPos= 0;
-    xTrans= yTrans= zTrans= 0;
-    defaultZoomFactor = zoomFactor = 1.0;
-    zoomInc = 0;
-    leftMouseButtonMode = INACTIVE;
-    wireframeMode = false;
-    grey = QColor::fromRgbF(0.6, 0.6, 0.6);
-    black = QColor::fromRgbF(0.0, 0.0, 0.0);
-    purple = QColor::fromCmykF(0.39, 0.39, 0.0, 0.0);
 }
 
 GLWidget::~GLWidget()
@@ -62,30 +60,32 @@ void GLWidget::makeObjectFromStlFile(StlFile *stlfile)
     object = glGenLists(1);
     glNewList(object, GL_COMPILE);
     glBegin(GL_TRIANGLES);
-    for(int i = 0; i < stlfile->getStats().numFacets; ++i)
+    StlFile::Facet *facets = stlfile->getFacets();
+    StlFile::Stats stats = stlfile->getStats();
+    for(int i = 0; i < stats.numFacets; ++i)
     {
-        glNormal3d(stlfile->getFacets()[i].normal.x,
-                   stlfile->getFacets()[i].normal.y,
-                   stlfile->getFacets()[i].normal.z);
-        triangle(stlfile->getFacets()[i].vector[0].x,
-                 stlfile->getFacets()[i].vector[0].y,
-                 stlfile->getFacets()[i].vector[0].z,
-                 stlfile->getFacets()[i].vector[1].x,
-                 stlfile->getFacets()[i].vector[1].y,
-                 stlfile->getFacets()[i].vector[1].z,
-                 stlfile->getFacets()[i].vector[2].x,
-                 stlfile->getFacets()[i].vector[2].y,
-                 stlfile->getFacets()[i].vector[2].z);
+        glNormal3d(facets[i].normal.x,
+                   facets[i].normal.y,
+                   facets[i].normal.z);
+        triangle(facets[i].vector[0].x,
+                 facets[i].vector[0].y,
+                 facets[i].vector[0].z,
+                 facets[i].vector[1].x,
+                 facets[i].vector[1].y,
+                 facets[i].vector[1].z,
+                 facets[i].vector[2].x,
+                 facets[i].vector[2].y,
+                 facets[i].vector[2].z);
     }
     glEnd();
     glEndList();
-    xPos = (stlfile->getStats().max.x+stlfile->getStats().min.x)/2;
-    yPos = (stlfile->getStats().max.y+stlfile->getStats().min.y)/2;
-    zPos = (stlfile->getStats().max.z+stlfile->getStats().min.z)/2;
+    xPos = (stats.max.x+stats.min.x)/2;
+    yPos = (stats.max.y+stats.min.y)/2;
+    zPos = (stats.max.z+stats.min.z)/2;
     defaultZoomFactor = qMax(qMax(
-        qAbs(stlfile->getStats().max.x-stlfile->getStats().min.x),
-        qAbs(stlfile->getStats().max.y-stlfile->getStats().min.y)),
-        qAbs(stlfile->getStats().max.z-stlfile->getStats().min.z));
+        qAbs(stats.max.x-stats.min.x),
+        qAbs(stats.max.y-stats.min.y)),
+        qAbs(stats.max.z-stats.min.z));
     zoomInc = defaultZoomFactor/1000;
     setDefaultView();
 }

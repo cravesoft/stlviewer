@@ -80,7 +80,7 @@ Vector Vector::Cross(Vector vec2) const
 }
 
 // Allows you to simply write "vec1 = vec2"
-Vector Vector::operator = (const Vector vec2)
+Vector Vector::operator = (const Vector &vec2)
 {
     x = vec2.x;
     y = vec2.y;
@@ -90,20 +90,20 @@ Vector Vector::operator = (const Vector vec2)
 }
 
 // Allows to check if two vectors equal each other
-bool Vector::operator == (const Vector vec2) const
+bool Vector::operator == (const Vector &vec2) const
 {
     return (x == vec2.x && y == vec2.y && z == vec2.z && w == vec2.w);
 }
 
 // Allows to check if two vectors don't equal to each other
-bool Vector::operator != (const Vector vec2) const
+bool Vector::operator != (const Vector &vec2) const
 {
     return (x != vec2.x || y != vec2.y || z != vec2.z || w != vec2.w);
 }
 
 // Allows to check if one vector is less than the other
 // NOTE: This operator overload has no mathematical meanning
-bool Vector::operator < (const Vector vec2) const
+bool Vector::operator < (const Vector &vec2) const
 {
     if(x == vec2.x)
     {   // x is considered to be the most important
@@ -135,13 +135,13 @@ bool Vector::operator < (const Vector vec2) const
 // NOTE: The following arithmetic operator overloads DO NOT change the value of
 // the current vector
 // Returns the sum of vectors
-Vector Vector::operator + (const Vector vec2) const
+Vector Vector::operator + (const Vector &vec2) const
 {
     return Vector(x + vec2.x, y + vec2.y, z + vec2.z, w + vec2.w);
 }
 
 // Returns the difference of vectors
-Vector Vector::operator - (const Vector vec2) const
+Vector Vector::operator - (const Vector &vec2) const
 {
     return Vector(x - vec2.x, y - vec2.y, z - vec2.z, w - vec2.w);
 }
@@ -161,14 +161,14 @@ Vector Vector::operator / (const float scale_factor) const
 }
 
 // Returns the vector multiplied by the other
-Vector Vector::operator * (const Vector scale_vector) const
+Vector Vector::operator * (const Vector &scale_vector) const
 {
     return Vector(x * scale_vector.x, y * scale_vector.y, z * scale_vector.z,
                   w * scale_vector.w);
 }
 
 // Returns the vector divided by the other
-Vector Vector::operator / (const Vector scale_vector) const
+Vector Vector::operator / (const Vector &scale_vector) const
 {
     return Vector(x / scale_vector.x, y / scale_vector.y, z / scale_vector.z,
                   w / scale_vector.w);

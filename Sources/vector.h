@@ -44,29 +44,29 @@ class Vector
     // Returns the Cross-Product between this and another Vector
     Vector Cross(Vector vec2) const;
     // Allows you to simply write "vec1 = vec2"
-    Vector operator = (const Vector vec2);
+    Vector operator = (const Vector &vec2);
     // Allows to check if two vectors equal each other
-    bool operator == (const Vector vec2) const;
+    bool operator == (const Vector &vec2) const;
     // Allows to check if two vectors are not equal to
     // each other
-    bool operator != (const Vector vec2) const;
+    bool operator != (const Vector &vec2) const;
     // Allows to check if one vector is less than the other
     // NOTE: This operator overload has no mathematical meanning
-    bool operator < (const Vector vec2) const;
+    bool operator < (const Vector &vec2) const;
     // NOTE: The following arithmetic operator overloads DO NOT change the value
     // of the current vector
     // Returns the sum of vectors
-    Vector operator + (const Vector vec2) const;
+    Vector operator + (const Vector &vec2) const;
     // Returns the difference of vectors
-    Vector operator - (const Vector vec2) const;
+    Vector operator - (const Vector &vec2) const;
     // Returns the vector scaled by a factor
     Vector operator * (const float scale_factor) const;
     // Returns the vectors scaled by a factor
     Vector operator / (const float scale_factor) const;
     // Returns the vector multiplied by the other
-    Vector operator * (const Vector scale_vector) const;
+    Vector operator * (const Vector &scale_vector) const;
     // Returns the vector divided by the other
-    Vector operator / (const Vector scale_vector) const;
+    Vector operator / (const Vector &scale_vector) const;
     float x, y, z, w;
 };
 
