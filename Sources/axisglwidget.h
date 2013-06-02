@@ -43,11 +43,6 @@ class AxisGLWidget : public QGLWidget
     void setYRotation(const int angle);
     void setZRotation(const int angle);
 
- signals:
-    void xRotationChanged(int angle) const;
-    void yRotationChanged(int angle) const;
-    void zRotationChanged(int angle) const;
-
  protected:
     void initializeGL();
     void paintGL();

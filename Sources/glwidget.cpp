@@ -451,7 +451,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             )
     {
         setXRotation(xRot + 8 * dy);
-        setYRotation(yRot + 8 * dx);
         setZRotation(zRot - 8 * dx);
     }
     lastPos = event->pos();

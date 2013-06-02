@@ -50,21 +50,18 @@ QSize AxisGLWidget::sizeHint() const
 void AxisGLWidget::setXRotation(const int angle)
 {
     xRot = angle;
-    emit xRotationChanged(angle);
     updateGL();
 }
 
 void AxisGLWidget::setYRotation(const int angle)
 {
     yRot = angle;
-    emit yRotationChanged(angle);
     updateGL();
 }
 
 void AxisGLWidget::setZRotation(const int angle)
 {
     zRot = angle;
-    emit zRotationChanged(angle);
     updateGL();
 }
 
