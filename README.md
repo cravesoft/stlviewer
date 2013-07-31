@@ -3,24 +3,17 @@
 This is the README for the software STLViewer,
 a free cross-platform viewer of STL files.
 
-The STLViewer home web site is
-
-http://stlviewer.sourceforge.net
-
 If you want to send bug reports or feature requests,
-please submit them to the sourceforge bug reporting page
-and feature request tracker respectively.
+please submit them to the github issues and pull requests
+pages respectively.
 
-Icons are partly retrieved from the silk icon set,
-which can be found at http://www.famfamfam.com and
-from the WooFunction set, which can be found at
-http://www.woothemes.com/2009/09/woofunction/
+Icons are partly retrieved from the Font Awesome icon set,
+which can be found at
+http://fortawesome.github.io/Font-Awesome/
 
 ## Screenshots
 
-![Screenshot1](http://sourceforge.net/projects/stlviewer/screenshots/240422)
-![Screenshot1](http://sourceforge.net/projects/stlviewer/screenshots/240424)
-![Screenshot1](http://sourceforge.net/projects/stlviewer/screenshots/240426)
+![Screenshot1](http://cravesoft.com/stlviewer/images/screenshot1-small.png)
 
 ## Installation 
 
@@ -37,7 +30,7 @@ git clone git@github.com:cravesoft/stlviewer.git
 For Ubuntu, simply enter the following command that will install all necessary packages:
 
 ``` bash
-sudo apt-get install libqtcore4 libqtgui4 libqt4-opengl
+sudo apt-get install libqt4-dev libqt4-opengl-dev qt4-qmake
 ```
 
 ### Compile
