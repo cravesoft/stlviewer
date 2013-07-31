@@ -1,95 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>STLViewer by cravesoft</title>
-  </head>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <title>STLViewer by cravesoft</title>
+    </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
+    <body>
+        <div id="container">
+            <div class="inner">
 
-        <header>
-          <h1>STLViewer</h1>
-          <h2>Display and manipulate the content of stereolithography or STL files</h2>
-        </header>
+                <header>
+                    <h1>STLViewer</h1>
+                    <h2>Display and manipulate the content of STL files</h2>
+                </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/cravesoft/stlviewer/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/cravesoft/stlviewer/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/cravesoft/stlviewer" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+                <section id="downloads" class="clearfix">
+                    <a href="https://github.com/cravesoft/stlviewer/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+                    <a href="https://github.com/cravesoft/stlviewer/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+                    <a href="https://github.com/cravesoft/stlviewer" id="view-on-github" class="button"><span>View on GitHub</span></a>
+                </section>
 
-        <hr>
+                <hr>
 
-        <section id="main_content">
-          <h1>
-<a name="stlviewer" class="anchor" href="#stlviewer"><span class="octicon octicon-link"></span></a>STLViewer</h1>
+                <section id="main_content">
+                    <h1><a name="stlviewer" class="anchor" href="#stlviewer"><span class="octicon octicon-link"></span></a>STLViewer</h1>
+                
+                    <p>STLViewer is a free cross-platform viewer of STL files.</p>
+                    
+                    <p>If you want to send bug reports or feature requests, please submit them to the github <a href="http://github.com/cravesoft/stlviewer/issues">issues</a> and <a href="http://github.com/cravesoft/stlviewer/pulls">pull requests</a> pages respectively.</p>
+                    
+                    <p>Icons are partly retrieved from the <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome icon set</a>.</p>
+                    
+                    <h2><a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+                    
+                    <p><img src="images/screenshot1-small.png" alt="Screenshot1"></p>
+                    
+                    <h2><a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+                    
+                    <h3><a name="get-the-source" class="anchor" href="#get-the-source"><span class="octicon octicon-link"></span></a>Get the source</h3>
+                    
+                    <p>Clone the git repository:</p>
+                    
+                    <div class="highlight"><pre>git clone git@github.com:cravesoft/stlviewer.git
+                    </pre></div>
+                    
+                    <h3><a name="install-dependencies" class="anchor" href="#install-dependencies"><span class="octicon octicon-link"></span></a>Install dependencies</h3>
+                    
+                    <p>For Ubuntu, simply enter the following command that will install all necessary packages:</p>
+                    
+                    <div class="highlight"><pre>sudo apt-get install libqtcore4 libqtgui4 libqt4-dev libqt4-opengl-dev qt4-qmake
+                    </pre></div>
+                    
+                    <h3><a name="compile" class="anchor" href="#compile"><span class="octicon octicon-link"></span></a>Compile</h3>
+                    
+                    <div class="highlight"><pre>qmake <span class="o">&amp;&amp;</span> make
+                    </pre></div>
+                    
+                    <p>This will generate an executable called <code>stlviewer</code>.</p>
+                </section>
 
-<p>This is the README for the software STLViewer,
-a free cross-platform viewer of STL files.</p>
-
-<p>The STLViewer home web site is</p>
-
-<p><a href="http://stlviewer.sourceforge.net">http://stlviewer.sourceforge.net</a></p>
-
-<p>If you want to send bug reports or feature requests,
-please submit them to the sourceforge bug reporting page
-and feature request tracker respectively.</p>
-
-<p>Icons are partly retrieved from the silk icon set,
-which can be found at <a href="http://www.famfamfam.com">http://www.famfamfam.com</a> and
-from the WooFunction set, which can be found at
-<a href="http://www.woothemes.com/2009/09/woofunction/">http://www.woothemes.com/2009/09/woofunction/</a></p>
-
-<h2>
-<a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h2>
-
-<p><img src="http://sourceforge.net/projects/stlviewer/screenshots/240422" alt="Screenshot1"><img src="http://sourceforge.net/projects/stlviewer/screenshots/240424" alt="Screenshot1"><img src="http://sourceforge.net/projects/stlviewer/screenshots/240426" alt="Screenshot1"></p>
-
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<h3>
-<a name="get-the-source" class="anchor" href="#get-the-source"><span class="octicon octicon-link"></span></a>Get the source</h3>
-
-<p>Clone the git repository:</p>
-
-<div class="highlight"><pre>git clone git@github.com:cravesoft/stlviewer.git
-</pre></div>
-
-<h3>
-<a name="install-dependencies" class="anchor" href="#install-dependencies"><span class="octicon octicon-link"></span></a>Install dependencies</h3>
-
-<p>For Ubuntu, simply enter the following command that will install all necessary packages:</p>
-
-<div class="highlight"><pre>sudo apt-get install libqtcore4 libqtgui4 libqt4-opengl
-</pre></div>
-
-<h3>
-<a name="compile" class="anchor" href="#compile"><span class="octicon octicon-link"></span></a>Compile</h3>
-
-<div class="highlight"><pre>qmake <span class="o">&amp;&amp;</span> make
-</pre></div>
-
-<p>This will generate an executable called <code>stlviewer</code>.</p>
-        </section>
-
-        <footer>
-          STLViewer is maintained by <a href="https://github.com/cravesoft">cravesoft</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+                <footer>
+                  STLViewer is maintained by <a href="https://github.com/cravesoft">cravesoft</a><br>
+                  This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+                </footer>
 
         
-      </div>
-    </div>
-  </body>
+            </div>
+        </div>
+    </body>
 </html>
