@@ -238,6 +238,7 @@ void StlFile::computeStats()
     float volume = 0.0;
     Vector p0;
     Vector p;
+    reset();
     ::std::vector<Vector> vectors;
     for(int i = 0; i < stats.numFacets; i++)
     {
