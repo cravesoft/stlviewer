@@ -117,7 +117,7 @@ void StlFile::initialize(const ::std::string& fileName)
             // Test if the STL file has the right size
             if(((int)fileSize - HEADER_SIZE) % SIZE_OF_FACET != 0)
             {
-                ::std::cerr << "The file " << fileIn << " has a wrong size."
+                ::std::cerr << "The file " << fileName << " has a wrong size."
                             << ::std::endl;
                 throw wrong_header_size();
             }
