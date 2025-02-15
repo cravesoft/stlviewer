@@ -13,9 +13,9 @@ http://fortawesome.github.io/Font-Awesome/
 
 ## Screenshots
 
-![Screenshot1](http://www.cravesoft.com/stlviewer/images/screenshot1-small.png)
+![Screenshot1](https://cravesoft.github.io/stlviewer/images/screenshot1-small.png)
 
-## Installation 
+## Installation
 
 ### Get the source
 
