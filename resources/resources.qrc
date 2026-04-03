@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="images/dark/new.svg">icons/dark/new.svg</file>
+        <file alias="images/dark/open.svg">icons/dark/open.svg</file>
+        <file alias="images/dark/save.svg">icons/dark/save.svg</file>
+        <file alias="images/dark/rotate.svg">icons/dark/rotate.svg</file>
+        <file alias="images/dark/pan.svg">icons/dark/pan.svg</file>
+        <file alias="images/dark/zoom_in.svg">icons/dark/zoom_in.svg</file>
+        <file alias="images/dark/zoom_out.svg">icons/dark/zoom_out.svg</file>
+        <file alias="images/dark/zoom_default.svg">icons/dark/zoom_default.svg</file>
+        <file alias="images/dark/wireframe.svg">icons/dark/wireframe.svg</file>
+        <file alias="images/dark/back_view.svg">icons/dark/back_view.svg</file>
+        <file alias="images/dark/bottom_view.svg">icons/dark/bottom_view.svg</file>
+        <file alias="images/dark/front_view.svg">icons/dark/front_view.svg</file>
+        <file alias="images/dark/left_view.svg">icons/dark/left_view.svg</file>
+        <file alias="images/dark/right_view.svg">icons/dark/right_view.svg</file>
+        <file alias="images/dark/top_view.svg">icons/dark/top_view.svg</file>
+        <file alias="images/dark/isometric_view.svg">icons/dark/isometric_view.svg</file>
+        <file alias="images/dark/check_cross.svg">icons/dark/check_cross.svg</file>
+        <file alias="images/light/check_cross.svg">icons/light/check_cross.svg</file>
+        <file alias="images/light/new.svg">icons/light/new.svg</file>
+        <file alias="images/light/open.svg">icons/light/open.svg</file>
+        <file alias="images/light/save.svg">icons/light/save.svg</file>
+        <file alias="images/light/rotate.svg">icons/light/rotate.svg</file>
+        <file alias="images/light/pan.svg">icons/light/pan.svg</file>
+        <file alias="images/light/zoom_in.svg">icons/light/zoom_in.svg</file>
+        <file alias="images/light/zoom_out.svg">icons/light/zoom_out.svg</file>
+        <file alias="images/light/zoom_default.svg">icons/light/zoom_default.svg</file>
+        <file alias="images/light/wireframe.svg">icons/light/wireframe.svg</file>
+        <file alias="images/light/back_view.svg">icons/light/back_view.svg</file>
+        <file alias="images/light/bottom_view.svg">icons/light/bottom_view.svg</file>
+        <file alias="images/light/front_view.svg">icons/light/front_view.svg</file>
+        <file alias="images/light/left_view.svg">icons/light/left_view.svg</file>
+        <file alias="images/light/right_view.svg">icons/light/right_view.svg</file>
+        <file alias="images/light/top_view.svg">icons/light/top_view.svg</file>
+        <file alias="images/light/isometric_view.svg">icons/light/isometric_view.svg</file>
+        <file alias="images/stl.png">icons/stl.png</file>
+        <file alias="images/down_arrow.png">icons/down_arrow.png</file>
+        <file alias="images/right_arrow.png">icons/right_arrow.png</file>
+        <file alias="images/up_spin_arrow.png">icons/up_spin_arrow.png</file>
+        <file alias="images/down_spin_arrow.png">icons/down_spin_arrow.png</file>
+        <file alias="images/up_spin_arrow_disabled.png">icons/up_spin_arrow_disabled.png</file>
+        <file alias="images/down_spin_arrow_disabled.png">icons/down_spin_arrow_disabled.png</file>
+        <file>dark.qss</file>
+        <file>light.qss</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=STLViewer
+Comment=STL 3D model viewer
+Exec=stlviewer %F
+Icon=stlviewer
+MimeType=model/stl;application/sla;
+Categories=Graphics;3DGraphics;Viewer;
+Keywords=STL;3D;model;viewer;

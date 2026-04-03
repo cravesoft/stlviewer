@@ -1,42 +1,118 @@
 # STLViewer
 
-This is the README for the software STLViewer,
-a free cross-platform viewer of STL files.
-
-If you want to send bug reports or feature requests,
-please submit them to the github issues and pull requests
-pages respectively.
-
-Icons are partly retrieved from the Font Awesome icon set,
-which can be found at
-http://fortawesome.github.io/Font-Awesome/
+A free, cross-platform viewer for STL files built with Qt6 and OpenGL 3.3.
 
 ## Screenshots
 
-![Screenshot1](https://cravesoft.github.io/stlviewer/images/screenshot1-small.png)
+![Screenshot](http://www.cravesoft.com/stlviewer/images/screenshot1-small.png)
 
-## Installation
+## Building
 
-### Get the source
+### Dependencies
 
-Clone the git repository:
+| Dependency | Minimum version |
+|------------|----------------|
+| CMake      | 3.16            |
+| Qt         | 6.0             |
+| OpenGL     | 3.3 core        |
 
-``` bash
-git clone git@github.com:cravesoft/stlviewer.git
+On Ubuntu/Debian:
+
+```bash
+sudo apt install cmake libgl-dev qt6-base-dev qt6-base-dev-tools
 ```
 
-### Install dependencies
+On Fedora/RHEL:
 
-For Ubuntu, simply enter the following command that will install all necessary packages:
-
-``` bash
-sudo apt-get install libqt4-dev libqt4-opengl-dev qt4-qmake
+```bash
+sudo dnf install cmake mesa-libGL-devel \
+    qt6-qtbase-devel qt6-qtopengl-devel
 ```
+
+On macOS (Homebrew):
+
+```bash
+brew install cmake qt6
+```
+
+On Windows, install [Qt 6](https://www.qt.io/download) via the online installer and [CMake](https://cmake.org/download/). Make sure the Qt `bin/` directory is on your `PATH`.
 
 ### Compile
 
-``` bash
-qmake && make
+```bash
+git clone https://github.com/cravesoft/stlviewer.git
+cd stlviewer
+
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
 ```
 
-This will generate an executable called `stlviewer`.
+The executable is placed at `build/stlviewer/stlviewer` (Linux/macOS) or `build\stlviewer\Release\stlviewer.exe` (Windows).
+
+#### Optional: install system-wide
+
+```bash
+sudo cmake --install build
+```
+
+### Packaging
+
+After a successful build, run `cpack` from the build directory. The package format is auto-selected based on the platform.
+
+#### .deb (Ubuntu/Debian)
+
+```bash
+cd build
+cpack -G DEB
+# produces stlviewer-x.x.x-Linux.deb
+sudo dpkg -i stlviewer-x.x.x-Linux.deb
+```
+
+#### Windows installer (.exe, NSIS)
+
+Build on Windows (or cross-compile), then:
+
+```bash
+cd build
+cpack -G NSIS
+# produces stlviewer-x.x.x-win64.exe
+```
+
+You can override the generator on any platform with `-G <generator>`. Run `cpack --help` for the full list.
+
+#### Debug build
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build --parallel
+```
+
+## Usage
+
+```bash
+# Open one or more files from the command line
+stlviewer model.stl
+
+# Or launch with no arguments and use File → Open
+stlviewer
+```
+
+### Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+O` | Open file |
+| `Ctrl+S` | Save |
+| `Ctrl+Shift+S` | Save As |
+| `Ctrl+I` | Save image |
+| `Ctrl+Q` | Quit |
+| `R` | Toggle rotate mode |
+| `P` | Toggle pan mode |
+| `W` | Toggle wireframe |
+| `+` | Zoom in |
+| `-` | Zoom out |
+| `1` | Reset zoom |
+
+## License
+
+MIT — see [LICENSE](LICENSE).
