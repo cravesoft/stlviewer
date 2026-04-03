@@ -4,7 +4,7 @@ A free, cross-platform viewer for STL files built with Qt6 and OpenGL 3.3.
 
 ## Screenshots
 
-![Screenshot](http://www.cravesoft.com/stlviewer/images/screenshot1-small.png)
+![Screenshot](https://cravesoft.github.io/stlviewer/images/screenshot1-small.png)
 
 ## Building
 

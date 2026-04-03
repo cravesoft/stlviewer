@@ -1,0 +1,22 @@
+title: STLViewer
+description: A free, cross-platform STL file viewer built with Qt6 and OpenGL 3.3
+baseurl: "/stlviewer"
+url: "https://cravesoft.github.io"
+
+author:
+  name: Olivier Crave
+  github: cravesoft
+  email: cravesoft@gmail.com
+  url: https://www.cravesoft.com
+
+repository: cravesoft/stlviewer
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
