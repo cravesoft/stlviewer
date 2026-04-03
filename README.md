@@ -4,7 +4,7 @@ A free, cross-platform viewer for STL files built with Qt6 and OpenGL 3.3.
 
 ## Screenshots
 
-![Screenshot](http://www.cravesoft.com/stlviewer/images/screenshot1-small.png)
+![Screenshot](https://cravesoft.github.io/stlviewer/images/screenshot1.png)
 
 ## Building
 
@@ -47,7 +47,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel
 ```
 
-The executable is placed at `build/stlviewer/stlviewer` (Linux/macOS) or `build\stlviewer\Release\stlviewer.exe` (Windows).
+The executable is placed at `build/stlviewer` (Linux/macOS) or `build\Release\stlviewer.exe` (Windows).
 
 #### Optional: install system-wide
 
