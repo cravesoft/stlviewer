@@ -162,7 +162,7 @@ QToolButton
     width: 20px;
     height: 24px;
     border-radius: 8px;
-    border: 0px solid #aaaaaa;
+    border: 1px solid transparent;
 }
 
 QToolButton:hover
