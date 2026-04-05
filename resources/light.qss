@@ -344,6 +344,15 @@ QTreeView::branch:open:has-children:has-siblings
     image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M1 1 L5 5 L9 1' fill='none' stroke='%2324292e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
+QHeaderView::section
+{
+    background-color: #c8c8c8;
+    color: #202020;
+    border: none;
+    border-right: 1px solid #aaaaaa;
+    padding: 2px 4px;
+}
+
 QComboBox
 {
     border: 1px solid #aaaaaa;
