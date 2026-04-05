@@ -42,8 +42,8 @@ static QIcon coloredIcon(const QString &resourcePath, const QColor &color)
     if (!f.open(QFile::ReadOnly))
         return QIcon();
     QByteArray svg = f.readAll();
-    svg.replace(QByteArrayLiteral("fill=\"#000000\""),
-                ("fill=\"" + color.name() + "\"").toUtf8());
+    const QByteArray col = ("\"" + color.name() + "\"").toUtf8();
+    svg.replace(QByteArrayLiteral("\"#000000\""), col);
     QBuffer buf(&svg);
     buf.open(QIODevice::ReadOnly);
     QImageReader reader(&buf, "svg");
@@ -199,37 +199,37 @@ void MainWindow::createActions()
     g_zoomDefaultAct->setStatusTip(tr("Set default zoom"));
     connect(g_zoomDefaultAct, SIGNAL(triggered()), this, SLOT(zoomDefault()));
 
-    g_backViewAct = new QAction(QIcon(":/images/dark/back_view.svg"),
+    g_backViewAct = new QAction(coloredIcon(":/images/back_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Back View"), this);
     g_backViewAct->setStatusTip(tr("Back view"));
     connect(g_backViewAct, SIGNAL(triggered()), this, SLOT(backView()));
 
-    g_frontViewAct = new QAction(QIcon(":/images/dark/front_view.svg"),
+    g_frontViewAct = new QAction(coloredIcon(":/images/front_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Front View"), this);
     g_frontViewAct->setStatusTip(tr("Front view"));
     connect(g_frontViewAct, SIGNAL(triggered()), this, SLOT(frontView()));
 
-    g_leftViewAct = new QAction(QIcon(":/images/dark/left_view.svg"),
+    g_leftViewAct = new QAction(coloredIcon(":/images/left_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Left View"), this);
     g_leftViewAct->setStatusTip(tr("Left view"));
     connect(g_leftViewAct, SIGNAL(triggered()), this, SLOT(leftView()));
 
-    g_rightViewAct = new QAction(QIcon(":/images/dark/right_view.svg"),
+    g_rightViewAct = new QAction(coloredIcon(":/images/right_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Right View"), this);
     g_rightViewAct->setStatusTip(tr("Right view"));
     connect(g_rightViewAct, SIGNAL(triggered()), this, SLOT(rightView()));
 
-    g_topViewAct = new QAction(QIcon(":/images/dark/top_view.svg"),
+    g_topViewAct = new QAction(coloredIcon(":/images/top_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Top View"), this);
     g_topViewAct->setStatusTip(tr("Top view"));
     connect(g_topViewAct, SIGNAL(triggered()), this, SLOT(topView()));
 
-    g_bottomViewAct = new QAction(QIcon(":/images/dark/bottom_view.svg"),
+    g_bottomViewAct = new QAction(coloredIcon(":/images/bottom_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Bottom View"), this);
     g_bottomViewAct->setStatusTip(tr("Bottom view"));
     connect(g_bottomViewAct, SIGNAL(triggered()), this, SLOT(bottomView()));
 
-    g_topFrontLeftViewAct = new QAction(QIcon(":/images/dark/isometric_view.svg"),
+    g_topFrontLeftViewAct = new QAction(coloredIcon(":/images/isometric_view.svg", QColor(0xd0, 0xd0, 0xd0)),
         tr("&Top Front Left View"), this);
     g_topFrontLeftViewAct->setStatusTip(tr("Top Front Left view"));
     connect(g_topFrontLeftViewAct, SIGNAL(triggered()), this, SLOT(topFrontLeftView()));
@@ -243,7 +243,7 @@ void MainWindow::createActions()
     g_aboutAct->setStatusTip(tr("About STLViewer"));
     connect(g_aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-    g_wireframeAct = new QAction(QIcon(":/images/dark/wireframe.svg"),
+    g_wireframeAct = new QAction(coloredIcon(":/images/wireframe.svg", QColor(0xd0, 0xd0, 0xd0)),
                                  tr("&Wireframe"), this);
     g_wireframeAct->setShortcut(tr("W"));
     g_wireframeAct->setStatusTip(tr("Wireframe view"));
@@ -896,35 +896,28 @@ void MainWindow::applyTheme(bool dark)
     file.open(QFile::ReadOnly);
     qApp->setStyleSheet(QLatin1String(file.readAll()));
 
-    // Recolor FA4 icons for the current theme
-    const QColor faColor = dark ? QColor(0xd0, 0xd0, 0xd0) : QColor(0x24, 0x29, 0x2e);
-    const QList<QPair<QAction*, QString>> faActions = {
-        {g_newAct,         ":/images/fa/new.svg"},
-        {g_openAct,        ":/images/fa/open.svg"},
-        {g_saveAct,        ":/images/fa/save.svg"},
-        {g_rotateAct,      ":/images/fa/rotate.svg"},
-        {g_panningAct,     ":/images/fa/pan.svg"},
-        {g_zoomInAct,      ":/images/fa/zoom_in.svg"},
-        {g_zoomOutAct,     ":/images/fa/zoom_out.svg"},
-        {g_zoomDefaultAct, ":/images/fa/zoom_default.svg"},
+    // Recolor all icons for the current theme (single SVG set for all)
+    const QColor iconColor = dark ? QColor(0xd0, 0xd0, 0xd0) : QColor(0x24, 0x29, 0x2e);
+    const QList<QPair<QAction*, QString>> allIconActions = {
+        {g_newAct,              ":/images/fa/new.svg"},
+        {g_openAct,             ":/images/fa/open.svg"},
+        {g_saveAct,             ":/images/fa/save.svg"},
+        {g_rotateAct,           ":/images/fa/rotate.svg"},
+        {g_panningAct,          ":/images/fa/pan.svg"},
+        {g_zoomInAct,           ":/images/fa/zoom_in.svg"},
+        {g_zoomOutAct,          ":/images/fa/zoom_out.svg"},
+        {g_zoomDefaultAct,      ":/images/fa/zoom_default.svg"},
+        {g_wireframeAct,        ":/images/wireframe.svg"},
+        {g_backViewAct,         ":/images/back_view.svg"},
+        {g_frontViewAct,        ":/images/front_view.svg"},
+        {g_leftViewAct,         ":/images/left_view.svg"},
+        {g_rightViewAct,        ":/images/right_view.svg"},
+        {g_topViewAct,          ":/images/top_view.svg"},
+        {g_bottomViewAct,       ":/images/bottom_view.svg"},
+        {g_topFrontLeftViewAct, ":/images/isometric_view.svg"},
     };
-    for (const auto &p : faActions)
-        p.first->setIcon(coloredIcon(p.second, faColor));
-
-    // Swap custom icons (kept as separate dark/light SVGs)
-    QString prefix = dark ? ":/images/dark/" : ":/images/light/";
-    const QList<QPair<QAction*, QString>> customActions = {
-        {g_wireframeAct,        "wireframe.svg"},
-        {g_backViewAct,         "back_view.svg"},
-        {g_frontViewAct,        "front_view.svg"},
-        {g_leftViewAct,         "left_view.svg"},
-        {g_rightViewAct,        "right_view.svg"},
-        {g_topViewAct,          "top_view.svg"},
-        {g_bottomViewAct,       "bottom_view.svg"},
-        {g_topFrontLeftViewAct, "isometric_view.svg"},
-    };
-    for (const auto &p : customActions)
-        p.first->setIcon(QIcon(prefix + p.second));
+    for (const auto &p : allIconActions)
+        p.first->setIcon(coloredIcon(p.second, iconColor));
 
     QColor dockBg = dark ? QColor(0x30, 0x30, 0x30) : QColor(0xd8, 0xd8, 0xd8);
     for (QWidget *w : {this->modelInfoDockContent, this->viewInfoDockContent})
