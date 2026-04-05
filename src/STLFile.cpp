@@ -204,6 +204,7 @@ StlFile::Facet StlFile::getNextFacet()
 
 void StlFile::computeStats()
 {
+    this->reset();
     float surface = 0.0f;
     float volume  = 0.0f;
     Vector p0;
