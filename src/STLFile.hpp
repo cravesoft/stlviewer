@@ -88,6 +88,7 @@ class StlFile
     void normalizeVector(float v[]);
     ::std::ifstream fileIn;
     Stats stats;
+    Format inputType;  // format of the source file; never changed by setFormat()
 };
 
 #endif  // STLFILE_H

@@ -95,6 +95,7 @@ void StlFile::initialize(const ::std::string& fileName)
         while ((c = fileIn.get()) != EOF && c <= 127);
         if (c == EOF)
             this->stats.type = ASCII;
+        this->inputType = this->stats.type;
         if (this->stats.type == BINARY)
         {
             fileIn.clear();
@@ -156,7 +157,7 @@ void StlFile::initialize(const ::std::string& fileName)
 
 void StlFile::reset()
 {
-    if (this->stats.type == BINARY)
+    if (this->inputType == BINARY)
         this->fileIn.seekg(HEADER_SIZE, ::std::ios::beg);
     else
     {
@@ -169,7 +170,7 @@ void StlFile::reset()
 StlFile::Facet StlFile::getNextFacet()
 {
     Facet facet;
-    if (this->stats.type == BINARY)
+    if (this->inputType == BINARY)
     {
         facet.normal.x = readFloatFromBytes(fileIn);
         facet.normal.y = readFloatFromBytes(fileIn);
