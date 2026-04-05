@@ -71,7 +71,7 @@ QCheckBox::indicator:hover
 
 QCheckBox::indicator:checked
 {
-    image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><line x1='2.5' y1='2.5' x2='11.5' y2='11.5' stroke='%23d0d0d0' stroke-width='2.5' stroke-linecap='round'/><line x1='11.5' y1='2.5' x2='2.5' y2='11.5' stroke='%23d0d0d0' stroke-width='2.5' stroke-linecap='round'/></svg>");
+    image: url(:/images/check_cross_dark.svg);
 }
 
 QFrame

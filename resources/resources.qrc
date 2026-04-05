@@ -11,7 +11,8 @@
         <file alias="images/fa/zoom_default.svg">icons/fa/search.svg</file>
         <!-- Custom icons (single set, recolored at runtime) -->
         <file alias="images/wireframe.svg">icons/wireframe.svg</file>
-        <file alias="images/check_cross.svg">icons/check_cross.svg</file>
+        <file alias="images/check_cross_dark.svg">icons/check_cross_dark.svg</file>
+        <file alias="images/check_cross_light.svg">icons/check_cross_light.svg</file>
         <file alias="images/front_view.svg">icons/front_view.svg</file>
         <file alias="images/back_view.svg">icons/back_view.svg</file>
         <file alias="images/left_view.svg">icons/left_view.svg</file>
