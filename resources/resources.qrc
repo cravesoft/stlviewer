@@ -13,6 +13,7 @@
         <file alias="images/wireframe.svg">icons/wireframe.svg</file>
         <file alias="images/check_cross_dark.svg">icons/check_cross_dark.svg</file>
         <file alias="images/check_cross_light.svg">icons/check_cross_light.svg</file>
+        <file alias="images/float_dark.svg">icons/float_dark.svg</file>
         <file alias="images/front_view.svg">icons/front_view.svg</file>
         <file alias="images/back_view.svg">icons/back_view.svg</file>
         <file alias="images/left_view.svg">icons/left_view.svg</file>

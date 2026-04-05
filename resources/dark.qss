@@ -22,13 +22,35 @@ QDockWidget
 {
     color: #f0f0f0;
     background-color: #303030;
-    titlebar-close-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><line x1='2.5' y1='2.5' x2='11.5' y2='11.5' stroke='%23d0d0d0' stroke-width='2.5' stroke-linecap='round'/><line x1='11.5' y1='2.5' x2='2.5' y2='11.5' stroke='%23d0d0d0' stroke-width='2.5' stroke-linecap='round'/></svg>");
+    titlebar-close-icon: url(:/images/check_cross_dark.svg);
+    titlebar-normal-icon: url(:/images/float_dark.svg);
 }
 
 QDockWidget::title
 {
     background-color: #303030;
     padding: 4px;
+}
+
+QDockWidget::close-button,
+QDockWidget::float-button
+{
+    border: none;
+    background: transparent;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+QDockWidget::close-button:hover,
+QDockWidget::float-button:hover
+{
+    background: #505050;
+}
+
+QDockWidget::close-button:pressed,
+QDockWidget::float-button:pressed
+{
+    background: #606060;
 }
 
 QToolButton
