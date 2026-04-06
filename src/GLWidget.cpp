@@ -227,8 +227,9 @@ void GLWidget::mouseMoveEvent(QMouseEvent *_event)
         dy = -dy;
     }
 
-    if (_event->buttons() & Qt::LeftButton &&
-        this->leftMouseButtonMode == PANNING)
+    if ((_event->buttons() & Qt::LeftButton &&
+         this->leftMouseButtonMode == PANNING) ||
+        _event->buttons() & Qt::MiddleButton)
     {
         qreal step;
         if (this->aspect < 0)
@@ -242,17 +243,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *_event)
         this->setPosition(QVector3D(dx * step, -dy * step, 0.0) + this->pos);
     }
     else if ((_event->buttons() & Qt::LeftButton &&
-             this->leftMouseButtonMode == ROTATE) ||
-             _event->buttons() & Qt::MiddleButton)
+              this->leftMouseButtonMode == ROTATE) ||
+             _event->buttons() & Qt::RightButton)
     {
         QQuaternion rot;
         rot = QQuaternion::fromAxisAndAngle(1.0, 0.0, 0.0, dy);
         rot *= QQuaternion::fromAxisAndAngle(0.0, 0.0, 1.0, dx);
         this->setRotation(rot * this->rot);
-    }
-    else if (_event->buttons() & Qt::RightButton)
-    {
-        setZoomFactor(this->zoomFactor + dy * this->zoomInc);
     }
     this->lastPos = _event->pos();
 }
