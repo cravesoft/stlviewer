@@ -37,9 +37,12 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN   "stlviewer.exe")
 set(CPACK_NSIS_URL_INFO_ABOUT       "http://www.cravesoft.com")
 set(CPACK_NSIS_CONTACT              "cravesoft@gmail.com")
 set(CPACK_NSIS_MODIFY_PATH          OFF)
-# Create Start Menu shortcut
+# Installer / uninstaller window icon
+set(CPACK_NSIS_MUI_ICON             "${CMAKE_CURRENT_SOURCE_DIR}/STLViewer.ico")
+set(CPACK_NSIS_MUI_UNIICON          "${CMAKE_CURRENT_SOURCE_DIR}/STLViewer.ico")
+# Create Start Menu shortcut with icon
 set(CPACK_NSIS_CREATE_ICONS_EXTRA
-    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\STLViewer.lnk' '$INSTDIR\\\\bin\\\\stlviewer.exe'")
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\STLViewer.lnk' '$INSTDIR\\\\bin\\\\stlviewer.exe' '' '$INSTDIR\\\\bin\\\\STLViewer.ico'")
 set(CPACK_NSIS_DELETE_ICONS_EXTRA
     "Delete '$SMPROGRAMS\\\\$START_MENU\\\\STLViewer.lnk'")
 

@@ -60,9 +60,18 @@ install(TARGETS stlviewer
 if(UNIX AND NOT APPLE)
     install(FILES cmake/stlviewer.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
-    install(FILES resources/icons/stl.png
+    install(FILES resources/icons/stlviewer_48.png
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/48x48/apps
         RENAME stlviewer.png)
+    install(FILES resources/icons/stlviewer_256.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
+        RENAME stlviewer.png)
+    install(FILES STLViewer.ico
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps)
+endif()
+
+if(WIN32)
+    install(FILES STLViewer.ico DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
 include(cmake/CPackConfig.cmake)
