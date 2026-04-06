@@ -106,9 +106,9 @@ stlviewer
 
 | Action | Input |
 |--------|-------|
-| Rotate | Middle-click drag, or enable Rotate mode then left-click drag |
-| Pan    | Enable Pan mode then left-click drag |
-| Zoom   | Scroll wheel, right-click drag, or `+` / `-` keys |
+| Rotate | Right-click drag, or enable Rotate mode then left-click drag |
+| Pan    | Middle-click drag, or enable Pan mode then left-click drag |
+| Zoom   | Scroll wheel, or `+` / `-` keys |
 
 ### Keyboard shortcuts
 
