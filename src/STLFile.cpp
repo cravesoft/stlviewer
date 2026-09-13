@@ -26,6 +26,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <filesystem>
 
 #include "STLFile.hpp"
 
@@ -33,6 +34,14 @@
 #define JUNK_SIZE 80
 #define SIZE_OF_FACET 50
 #define ASCII_LINES_PER_FACET 7
+
+// std::fstream's narrow overloads interpret paths in the local 8-bit encoding,
+// which on Windows cannot represent characters outside the active ANSI codepage.
+// std::filesystem::path converts to whatever the platform natively uses.
+static ::std::filesystem::path nativePath(const QString& fileName)
+{
+    return ::std::filesystem::path(fileName.toStdU16String());
+}
 
 static bool compareVectors(Vector i, Vector j);
 static bool equalVectors(Vector i, Vector j);
@@ -46,13 +55,13 @@ StlFile::~StlFile()
     this->close();
 }
 
-void StlFile::open(const ::std::string& fileName)
+void StlFile::open(const QString& fileName)
 {
     this->initialize(fileName);
     this->computeStats();
 }
 
-void StlFile::write(const ::std::string& fileName)
+void StlFile::write(const QString& fileName)
 {
     if (this->fileIn.is_open())
     {
@@ -76,13 +85,13 @@ void StlFile::setFormat(const int format)
         this->stats.type = BINARY;
 }
 
-void StlFile::initialize(const ::std::string& fileName)
+void StlFile::initialize(const QString& fileName)
 {
     this->stats.numFacets = 0;
     this->stats.numPoints = 0;
     this->stats.surface = -1.0f;
     this->stats.volume = -1.0f;
-    fileIn.open(fileName.c_str(), ::std::ios::in | ::std::ios::binary);
+    fileIn.open(nativePath(fileName), ::std::ios::in | ::std::ios::binary);
     if (fileIn.is_open())
     {
         int numFacets;
@@ -102,7 +111,7 @@ void StlFile::initialize(const ::std::string& fileName)
             fileIn.seekg(0, ::std::ios::beg);
             if (((int)fileSize - HEADER_SIZE) % SIZE_OF_FACET != 0)
             {
-                qWarning() << "The file" << fileName.c_str() << "has a wrong size.";
+                qWarning() << "The file" << fileName << "has a wrong size.";
                 throw wrong_header_size();
             }
             numFacets = ((int)fileSize - HEADER_SIZE) / SIZE_OF_FACET;
@@ -123,7 +132,7 @@ void StlFile::initialize(const ::std::string& fileName)
         else
         {
             fileIn.close();
-            fileIn.open(fileName.c_str(), ::std::ios::in);
+            fileIn.open(nativePath(fileName), ::std::ios::in);
             if (fileIn.is_open())
             {
                 char buffer[JUNK_SIZE];
@@ -142,7 +151,7 @@ void StlFile::initialize(const ::std::string& fileName)
             }
             else
             {
-                qWarning() << "The file" << fileName.c_str() << "could not be opened.";
+                qWarning() << "The file" << fileName << "could not be opened.";
                 throw error_opening_file();
             }
         }
@@ -150,7 +159,7 @@ void StlFile::initialize(const ::std::string& fileName)
     }
     else
     {
-        qWarning() << "The file" << fileName.c_str() << "could not be opened.";
+        qWarning() << "The file" << fileName << "could not be opened.";
         throw error_opening_file();
     }
 }
@@ -308,9 +317,9 @@ void StlFile::writeBytesFromFloat(::std::ofstream& file, float valueIn)
     file.write(reinterpret_cast<char*>(&newValue), sizeof(newValue));
 }
 
-void StlFile::writeBinary(const ::std::string& fileName)
+void StlFile::writeBinary(const QString& fileName)
 {
-    ::std::ofstream fileOut(fileName.c_str(), ::std::ios::out | ::std::ios::binary);
+    ::std::ofstream fileOut(nativePath(fileName), ::std::ios::out | ::std::ios::binary);
     if (fileOut.is_open())
     {
         for (int i = 0; i < JUNK_SIZE; i++)
@@ -336,14 +345,14 @@ void StlFile::writeBinary(const ::std::string& fileName)
     }
     else
     {
-        qWarning() << "The file" << fileName.c_str() << "could not be opened for writing.";
+        qWarning() << "The file" << fileName << "could not be opened for writing.";
         throw error_opening_file();
     }
 }
 
-void StlFile::writeAscii(const ::std::string& fileName)
+void StlFile::writeAscii(const QString& fileName)
 {
-    ::std::ofstream fileOut(fileName.c_str(), ::std::ios::out);
+    ::std::ofstream fileOut(nativePath(fileName), ::std::ios::out);
     fileOut.setf(::std::ios::scientific);
     fileOut.precision(8);
     if (fileOut.is_open())
@@ -367,7 +376,7 @@ void StlFile::writeAscii(const ::std::string& fileName)
     }
     else
     {
-        qWarning() << "The file" << fileName.c_str() << "could not be opened for writing.";
+        qWarning() << "The file" << fileName << "could not be opened for writing.";
         throw error_opening_file();
     }
 }

@@ -55,7 +55,7 @@ bool GLMdiChild::loadFile(const QString &fileName)
     try
     {
         QApplication::setOverrideCursor(Qt::WaitCursor);
-        this->stlFile->open(fileName.toUtf8().constData());
+        this->stlFile->open(fileName);
         this->makeObjectFromSTLFile(*this->stlFile);
         this->setCurrentFile(fileName);
         QApplication::restoreOverrideCursor();
@@ -133,7 +133,7 @@ bool GLMdiChild::saveFile(const QString &fileName)
     try
     {
         QApplication::setOverrideCursor(Qt::WaitCursor);
-        this->stlFile->write(fileName.toUtf8().constData());
+        this->stlFile->write(fileName);
         QApplication::restoreOverrideCursor();
         this->setCurrentFile(fileName);
         return true;

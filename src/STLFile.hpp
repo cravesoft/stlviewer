@@ -25,6 +25,8 @@
 #include <fstream>
 #include <exception>
 
+#include <QString>
+
 #include "vector.h"
 
 class StlFile
@@ -66,8 +68,8 @@ class StlFile
     } Stats;
     StlFile();
     ~StlFile();
-    void open(const ::std::string&);
-    void write(const ::std::string&);
+    void open(const QString&);
+    void write(const QString&);
     void close();
     void setFormat(const int format);
     Stats getStats() const { return stats; };
@@ -75,14 +77,14 @@ class StlFile
     Facet getNextFacet();
 
  private:
-    void initialize(const ::std::string&);
+    void initialize(const QString&);
     void computeStats();
     int readIntFromBytes(::std::ifstream&);
     float readFloatFromBytes(::std::ifstream&);
     void writeBytesFromInt(::std::ofstream&, int);
     void writeBytesFromFloat(::std::ofstream& file, float);
-    void writeBinary(const ::std::string&);
-    void writeAscii(const ::std::string&);
+    void writeBinary(const QString&);
+    void writeAscii(const QString&);
     float getArea(Facet &facet);
     void calculateNormal(float normal[], Facet &facet);
     void normalizeVector(float v[]);
