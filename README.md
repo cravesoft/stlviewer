@@ -1,3 +1,5 @@
+
+
 # STLViewer
 
 A free, cross-platform viewer for STL files built with Qt6 and OpenGL 3.3.
@@ -91,7 +93,7 @@ cmake --build build --parallel
 
 ```bash
 # Open one or more files from the command line
-stlviewer model.stl
+stlviewer model.stl other.stl
 
 # Or launch with no arguments and use File → Open
 stlviewer
